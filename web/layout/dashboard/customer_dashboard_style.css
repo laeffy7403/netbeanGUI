@@ -1,0 +1,72 @@
+/* Add this CSS to your existing stylesheet */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+table th, table td {
+    /* border: 1px solid #ddd; */
+    padding: 8px;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+
+
+/* Add this CSS to your existing stylesheet */
+
+.address-container {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 20px;
+}
+
+.address-box {
+    flex: 1;
+    padding: 5px;
+    /* border: 1px solid #ddd; */
+    /* border-radius: 5px; */
+    margin-right: 10px;
+}
+
+.address-box:last-child {
+    margin-right: 0;
+}
+
+.address-box h3 {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.address-box p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.edit-link {
+    font-size: 14px;
+    color: #1e90ff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.edit-link:hover {
+    text-decoration: underline;
+}

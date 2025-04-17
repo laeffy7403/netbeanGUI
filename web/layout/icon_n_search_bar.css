@@ -1,0 +1,30 @@
+/* Add this CSS to your existing stylesheet */
+
+.dashboard-header {
+    grid-area: header;
+    background-color: #fff;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 1rem;
+    width: 300px; /* Adjust the width as needed */
+}
+
+.icon  {
+    width: 20px;  /* Adjust width to fit well with text */
+    height: 20px; 
+    vertical-align: middle; 
+    margin-left: 18px;
+}

@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 15px;
+    font-family: system-ui, sans-serif;
+}
+
+.menu {
+    border:0px solid;
+    padding: 15px 20px;
+    width:auto;
+    display: flex;
+    justify-content: center; /* Centers the nav horizontally */
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0px;
+}
+
+nav ul li {
+    margin: 0 15px;
+    display: inline-block;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav ul li img {
+    width: 20px;  /* Adjust width to fit well with text */
+    height: 20px; 
+    vertical-align: middle; /* Helps align images inline with text */
+}
+
+.menu li {
+    position: relative;
+    /* padding: 10px 15px; */
+    cursor: pointer;
+}
+
+.disable-blue{
+    color: black !important;
+    text-decoration:none !important;
+}
+
+
+/* Dropdown Menu */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left:-70%;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px 0;
+    min-width: 200px;
+    display: none;
+    opacity: 0;
+    /* transform: translateY(-10px); */
+    /* transition: opacity 0.4s ease, transform 0.4s ease; */
+}
+
+
+
+.dropdown li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 8px 15px;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: -50px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 5px;
+    min-width: 250px;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(-10px); /* Slide up when hidden */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    
+    z-index: 2; /* Ensure it appears above other elements */
+}
+
+.search-dropdown.visible {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Slide down into place */
+   
+}
+
+.search-dropdown li {
+    padding: 10px;
+}
+
+.search-dropdown li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 8px 15px;
+}
+
+.search-dropdown input {
+    width: 250px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.search-icon{
+    border: none !important;
+    background-color: transparent;
+    outline: none !important;
+}
+
+.profile-icon{
+    border: none !important;
+    background-color: transparent;
+    outline: none !important;
+}
+/* Show Dropdown on Hover */
+.has-dropdown:hover .dropdown {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 1;
+  
+    
+}
+.dropdown {
+    display: block; /* Always keep it in the layout */
+    opacity: 0;
+    /* transform: translateY(-10px); */
+    /* transition: opacity 0.3s ease, transform 0.3s ease; */
+}
+
+.dropdown.visible {
+    opacity: 1;
+    transform: translateY(0);
+    
+}
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 40px; /* Start small */
+    padding: 8px;
+    border-radius: 18px;
+    outline: none;
+    font-size: 14px;
+    transition: width 0.4s ease-in-out, padding 0.4s ease-in-out;
+    background-color: #f5f5f7;
+}
+
+.cart-page {
+    position: relative; /* Ensure it has a position context */
+    z-index: 10; /* Set a high z-index to bring it to the front */
+}
+
+.profile-icon{
+    position: relative; /* Ensure it has a position context */
+    z-index: 10; /* Set a high z-index to bring it to the front */
+}
+
+.search-icon{
+    position: relative; /* Ensure it has a position context */
+    z-index: 10; /* Set a high z-index to bring it to the front */
+}

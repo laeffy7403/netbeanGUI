@@ -1,0 +1,234 @@
+    /* Header Styles */
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 5px solid #28a745;
+    }
+
+    .header .logo img {
+        width: 80px;
+        height: auto;
+        margin-right: 20px;
+    }
+
+    .header .header-text h1 {
+        margin: 0;
+        font-size: 32px;
+        color: #fff;
+    }
+
+    .header .header-text h2 {
+        margin: 5px 0;
+        font-size: 20px;
+        color: #ddd;
+    }
+
+    .header .header-text h3 {
+        margin: 5px 0;
+        font-size: 18px;
+        color: #bbb;
+    }
+
+    /* Container and Form Styles */
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        margin: 20px 50%;
+        text-align: center;
+    }
+
+    .form-section {
+        margin-bottom: 20px;
+    }
+
+    .form-section h4 {
+        margin-bottom: 10px;
+        font-size: 30px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: #333;
+        text-align: left;
+        margin-left:50px;
+    }
+
+    .form-group input, .form-group select {
+        width: 80%;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 15px;
+
+    }
+
+    .form-group button {
+        width: 85%;
+        padding: 20px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 20px;
+        cursor: pointer;
+        margin-top:15px;
+    }
+
+    .form-group button:hover {
+        background-color: #218838;
+    }
+
+    /* Row Container for Exp Year and CVV */
+    .row-container {
+        display: flex;
+        gap:0;
+    }
+
+    .row-container .form-group {
+        flex: 1; /* Ensures both fields take equal width */
+        margin:0;
+        padding:0;
+    }
+
+    .row-container .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: #333;
+    }
+
+
+    .row-container .form-group input {
+        width: 70%;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-right:40px;
+    }
+
+    .row-container .form-group select{
+        width: 75%;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-left:20px;
+    }
+
+    .motivation {
+        text-align: center; /* Center the text */
+        padding: 20px;
+        margin-left: 200px;
+        position: relative; /* Required for absolutely positioned child */
+    }
+
+    .motivation span{
+        color:white;
+        text-transform:uppercase;
+        display: block;
+    }
+
+    .text1 {
+        color: black;
+        font-size: 150px;
+        font-weight: 700;
+        letter-spacing: 8px;
+        margin-bottom: 20px; /* Space between text1 and text2 */
+        background: black;
+        animation: text 3s 1;
+        display: block; /* Ensure it's on its own line */
+    }
+
+    /* Text2 styles */
+    .text2 {
+        font-size: 30px;
+        color: #6ab04c;
+        display: block; /* Ensure it's on its own line */
+        margin-top: 20px; /* Space between text1 and text2 */
+    }
+
+    @keyframes text{
+        0%{
+            color:black;
+            margin-bottom:-40px;
+        }
+        30%{
+            letter-spacing:25px;
+            margin-bottom:-40px;
+        }
+        85%{
+            letter-spacing:8px;
+            margin-bottom:-40px;
+        }
+
+    }
+
+    /* Main container to hold motivation and container */
+    .main-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two equal columns (50% each) */
+        gap: 5px; /* Space between motivation and container */
+        padding: 20px; /* Add some padding */
+        max-width: 1200px; /* Limit the maximum width */
+        margin: 0 auto; /* Center the container */
+        align-items: center; /* Vertically center the content */
+    }
+
+    /* Motivation section (left side) */
+    .motivation {
+        text-align: center; /* Center the text */
+        padding: 20px;
+        margin-left:200px;
+        position:relative;
+    }
+
+    .text-container {
+        position: absolute;
+        top: -300%; /* Center vertically */
+        transform: translate(-50%, -50%); /* Center the container */
+        text-align: center; /* Center the text inside the container */
+    }
+
+    .motivation .text1 {
+        font-size: 100px;
+        font-weight: 700;
+        letter-spacing: 8px;
+        margin-bottom: 100px;
+        color: white;
+        animation: text 3s 1;
+    }
+
+    .motivation .text2 {
+        font-size: 60px;
+        color: #6ab04c;
+    }
+
+    /* Container section (right side) */
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Ensure it takes up 50% of the parent */
+        margin-left:70px;
+    }
+
+
