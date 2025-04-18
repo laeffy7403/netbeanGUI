@@ -157,7 +157,7 @@
             </div>
         </div>
     </div>
-
+    
     <script>
         const slides = document.querySelector('.promotion-slides');
         const indicators = document.querySelectorAll('.carousel-indicators button');
@@ -183,6 +183,10 @@
         });
 
         setInterval(nextSlide, 3000); // Change slide every 3 seconds
+    </script>
+
+    <script>
+
     </script>
 </body>
 </html>
