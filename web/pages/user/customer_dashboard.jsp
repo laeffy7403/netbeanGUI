@@ -31,8 +31,8 @@
             <li><a href="#">Orders</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Settings</a></li>
-            <li><a href="admin_dashboard.html">admin dash</a></li>
-            <li><a href="staff_dashboard.html">staff dash</a></li>
+            <li><a href="admin_dashboard.jsp">admin dash</a></li>
+            <li><a href="staff_dashboard.jsp">staff dash</a></li>
           </ul>
         </nav>
         </div>
@@ -191,7 +191,7 @@ document.body.classList.toggle("sb-expand");
 
 
 <script>
-  fetch("../footer.html")
+  fetch("../footer.jsp")
     .then(response => response.text())
     .then(data => {
       document.getElementById("footer-container").innerHTML = data;

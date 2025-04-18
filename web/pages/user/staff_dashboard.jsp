@@ -28,8 +28,8 @@
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Products</a></li>
             <li><a href="#">Settings</a></li>
-            <li><a href="admin_dashboard.html">admin dash</a></li>
-            <li><a href="customer_dashboard.html">customer dash</a></li>
+            <li><a href="admin_dashboard.jsp">admin dash</a></li>
+            <li><a href="customer_dashboard.jsp">customer dash</a></li>
             
           </ul>
         </nav>
