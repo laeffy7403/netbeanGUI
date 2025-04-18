@@ -1,0 +1,91 @@
+* {
+    position: relative;
+}
+
+body {
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fbfbfb;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+.search-container input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex-grow: 1;
+}
+
+.search-container .suggestions {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.suggestions a {
+    padding-left: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+td {
+    padding: 20px;
+    vertical-align: top;
+}
+
+.itemContainer {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 100%;
+    position: relative;
+}
+
+.itemImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.desc {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.itemImg img {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 150px;
+    height: 150px;
+}
+
+h3.prodname {
+    font-size: 1.17em;
+    font-weight: bold;
+    height: 5em;
+    /* Set height to accommodate 3 lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+h2{
+    margin-top: 10px;
+}

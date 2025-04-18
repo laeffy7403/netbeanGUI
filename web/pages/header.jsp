@@ -24,35 +24,35 @@
                 </ul>
             </li>
             <li class="has-dropdown">
-                <a href="/pages/product.jsp#phonesection" class="disable-blue">Phone</a>
+                <a href="product.jsp" class="disable-blue">Phone</a>
                 <ul class="dropdown">
-                    <li><a href="/pages/product.jsp#phonesection">Phone 1</a></li>
-                    <li><a href="/pages/product.jsp#phonesection">iPhone 15 Pro</a></li>
-                    <li><a href="/pages/product.jsp#phonesection">iPhone SE</a></li>
+                    <li><a href="product.jsp">Phone 1</a></li>
+                    <li><a href="product.jsp#phonesection">iPhone 15 Pro</a></li>
+                    <li><a href="product.jsp#phonesection">iPhone SE</a></li>
                 </ul>
             </li>
             <li class="has-dropdown">
-                <a href="/pages/product.jsp#tabletsection" class="disable-blue">Tablet</a>
+                <a href="product.jsp#tabletsection" class="disable-blue">Tablet</a>
                 <ul class="dropdown">
-                    <li><a href="/pages/product.jsp#tabletsection">Tab 15</a></li>
-                    <li><a href="/pages/product.jsp#tabletsection">Tab 15 Pro</a></li>
-                    <li><a href="/pages/product.jsp#tabletsection">Tab SE</a></li>
+                    <li><a href="product.jsp#tabletsection">Tab 15</a></li>
+                    <li><a href="product.jsp#tabletsection">Tab 15 Pro</a></li>
+                    <li><a href="product.jsp#tabletsection">Tab SE</a></li>
                 </ul>
             </li>
             <li class="has-dropdown">
-                <a href="/pages/product.jsp#laptopsection" class="disable-blue">Laptop</a>
+                <a href="product.jsp#laptopsection" class="disable-blue">Laptop</a>
                 <ul class="dropdown">
-                    <li><a href="/pages/product.jsp#laptopsection">Laptop 15</a></li>
-                    <li><a href="/pages/product.jsp#laptopsection">Laptop 15 Pro</a></li>
-                    <li><a href="/pages/product.jsp#laptopsection">Laptop SE</a></li>
+                    <li><a href="product.jsp#laptopsection">Laptop 15</a></li>
+                    <li><a href="product.jsp#laptopsection">Laptop 15 Pro</a></li>
+                    <li><a href="product.jsp#laptopsection">Laptop SE</a></li>
                 </ul>
             </li>
             <li class="has-dropdown">
-                <a href="/pages/product.jsp#watchsection" class="disable-blue">Watch</a>
+                <a href="product.jsp#watchsection" class="disable-blue">Watch</a>
                 <ul class="dropdown">
-                    <li><a href="/pages/product.jsp#watchsection">Watch 15</a></li>
-                    <li><a href="/pages/product.html#watchsection">Watch 15 Pro</a></li>
-                    <li><a href="/pages/product.html#watchsection">Watch SE</a></li>
+                    <li><a href="product.jsp#watchsection">Watch 15</a></li>
+                    <li><a href="product.html#watchsection">Watch 15 Pro</a></li>
+                    <li><a href="product.html#watchsection">Watch SE</a></li>
                 </ul>
             </li>
             <li>
