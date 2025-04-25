@@ -9,8 +9,8 @@
 </head>
 <body>
     <header class="dashboard-header">
-        <h1>00Aplus - Dashboard</h1>
         <div class="header-right">
+          <input type="text" class="search-bar" placeholder="Search...">
           <div><img class="icon" src="../../img/profile.svg"  title="Profile" /></div>
           <!-- <div><img class="icon" src="../../img/shopping-bag.svg" title="Your Items"/></div> -->
       </div>
@@ -25,9 +25,9 @@
         <div>
         <nav class="dashboard-nav">
           <ul>
-            <li><a href="#">Dashboard</a></li>
+            <li><h1><a href="#">Dashboard</a></h1></li><hr style="color: aliceblue;">
             <li><a href="#">Products</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="#">Settings</a></li><hr style="color: aliceblue;">
             <li><a href="admin_dashboard.jsp">admin dash</a></li>
             <li><a href="customer_dashboard.jsp">customer dash</a></li>
             
@@ -39,8 +39,10 @@
       
       
       <main class="dashboard-main">
+        <h1>Dashboard</h1>
         <div class="card card-1">
-          <h2>Welcome back staff John Doe!</h2>
+          <h2>Data Item</h2>
+          <hr style="color: #2f6bd4 ;">
         </div>
 
       <!-- 
@@ -103,7 +105,7 @@
       </main>
       
       <footer class="dashboard-footer">
-        Footer
+        <code><p>&copy; 2023 00Aplus. All rights reserved.</p>
       </footer>
 
 </body>

@@ -9,7 +9,7 @@
 </head>
 <body>
     <header class="dashboard-header">
-        <h1>00Aplus - Dashboard</h1>
+        <!-- <h1>00Aplus - Dashboard</h1> -->
 
         <div class="header-right">
 
@@ -27,13 +27,13 @@
         <div>
         <nav class="dashboard-nav">
           <ul>
-            <li><a href="#">Dashboard</a></li>
+            <li><h1><a href="#">Dashboard</a></h1></li><hr style="color: aliceblue;">
             <li><a href="#">Orders</a></li>
             <li><a href="#">Products</a></li>
             <li><a href="#">Customers</a></li>
             <li><a href="#">Reports</a></li>
             <li><a href="#">Staff</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="#">Settings</a></li><hr style="color: aliceblue;">
             <li><a href="customer_dashboard.jsp">customer dash</a></li>
             <li><a href="staff_dashboard.jsp">staff dash</a></li>
           </ul>
@@ -44,8 +44,10 @@
       
       
       <main class="dashboard-main">
+        <h1>Dashboard</h1>
         <div class="card card-1">
-          <h2>Welcome back admin John Doe!</h2>
+          <h2>Data Item</h2>
+          <hr style="color: #2f6bd4;">
         </div>
         <!-- 
         <div class="card card-2">
@@ -65,7 +67,7 @@
         </div> -->
       
         <div class="card card-6">
-          <h2>New Order - 6</h2>
+          <h2>New Order - 6</h2>  
         </div>
       
         <div class="card card-7">
@@ -107,7 +109,7 @@
       </main>
       
       <footer class="dashboard-footer">
-        Footer
+        <code><p>&copy; 2023 00Aplus. All rights reserved.</p>
       </footer>
 
 </body>
