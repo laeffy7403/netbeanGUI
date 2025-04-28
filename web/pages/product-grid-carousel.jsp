@@ -114,28 +114,37 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const wrapper = document.querySelector(".product-grid-wrapper");
-            const prevBtn = document.querySelector(".prev");
-            const nextBtn = document.querySelector(".next");
-            let index = 0;
-            const totalSlides = document.querySelectorAll(".product-grid").length;
+document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.querySelector(".product-grid-carousel");
 
-            function showSlide(newIndex) {
-                index = newIndex;
-                wrapper.style.transform = `translateX(${-index * 100}%)`;
-            }
+    if (!carousel) {
+        console.error("Carousel not found!");
+        return;
+    }
 
-            nextBtn.addEventListener("click", () => {
-                index = (index + 1) % totalSlides;
-                showSlide(index);
-            });
+    const wrapper = carousel.querySelector(".product-grid-wrapper");
+    const prevBtn = carousel.querySelector(".prev");
+    const nextBtn = carousel.querySelector(".next");
+    let index = 0;
+    const totalSlides = carousel.querySelectorAll(".product-grid").length;
 
-            prevBtn.addEventListener("click", () => {
-                index = (index - 1 + totalSlides) % totalSlides;
-                showSlide(index);
-            });
-        });
-    </script>
+    function showSlide(newIndex) {
+        index = newIndex;
+        wrapper.style.transform = `translateX(${-index * 100}%)`;
+    }
+
+    nextBtn.addEventListener("click", () => {
+        index = (index + 1) % totalSlides;
+        showSlide(index);
+    });
+
+    prevBtn.addEventListener("click", () => {
+        index = (index - 1 + totalSlides) % totalSlides;
+        showSlide(index);
+    });
+});
+
+</script>
+
 </body>
 </html>

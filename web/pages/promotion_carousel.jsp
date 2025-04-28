@@ -159,34 +159,31 @@
     </div>
     
     <script>
-        const slides = document.querySelector('.promotion-slides');
-        const indicators = document.querySelectorAll('.carousel-indicators button');
-        let currentIndex = 0;
+    const slides = document.querySelector('.promotion-slides');
+    const indicators = document.querySelectorAll('.carousel-indicators button');
+    let currentIndex = 0;
 
-        function showSlide(index) {
-            slides.style.transform = `translateX(${-index * 100}%)`;
-            indicators.forEach((indicator, i) => {
-                indicator.classList.toggle('active', i === index);
-            });
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % indicators.length;
-            showSlide(currentIndex);
-        }
-
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                currentIndex = index;
-                showSlide(currentIndex);
-            });
+    function showSlide(index) {
+        slides.style.transform = `translateX(${-index * 100}%)`;
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === index);
         });
+    }
 
-        setInterval(nextSlide, 3000); // Change slide every 3 seconds
-    </script>
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % indicators.length;
+        showSlide(currentIndex);
+    }
 
-    <script>
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentIndex = index;
+            showSlide(currentIndex);
+        });
+    });
 
-    </script>
+    setInterval(nextSlide, 3000); // Change slide every 3 seconds
+</script>
+
 </body>
 </html>

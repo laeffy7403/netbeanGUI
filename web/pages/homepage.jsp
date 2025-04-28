@@ -21,9 +21,7 @@
     <!-- Promotion Products Slide Section -->
     <section class="promotion-products">
         <!-- <h3>Exclusive event</h3> -->
-
         <div id="carousel-container"></div>
-
         <br><br>
 
         <h3>Special Pick For You</h3>
@@ -170,6 +168,7 @@ function initializeCarousel() {
 
         setInterval(nextSlide, 2000); // Change slide every 3 seconds
     }
+
 
 
 
