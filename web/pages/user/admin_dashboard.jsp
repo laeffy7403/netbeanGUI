@@ -27,13 +27,13 @@
         <div>
         <nav class="dashboard-nav">
           <ul>
-            <li><h1><a href="#">Dashboard</a></h1></li><hr style="color: aliceblue;">
+            <li><h1><a href="#">Dashboard</a></h1></li><hr style="color: aliceblue;"><br>
             <li><a href="#">Orders</a></li>
-            <li><a href="#">Products</a></li>
+            <li><a href="../recordlist/product_record.jsp">Products</a></li>
+            <li><a href="#">Staff</a></li>
             <li><a href="#">Customers</a></li>
             <li><a href="#">Reports</a></li>
-            <li><a href="#">Staff</a></li>
-            <li><a href="#">Settings</a></li><hr style="color: aliceblue;">
+            <li><a href="#">Settings</a></li><br><hr style="color: aliceblue;">
             <li><a href="customer_dashboard.jsp">customer dash</a></li>
             <li><a href="staff_dashboard.jsp">staff dash</a></li>
           </ul>

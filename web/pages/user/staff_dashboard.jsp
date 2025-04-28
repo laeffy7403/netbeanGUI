@@ -25,9 +25,9 @@
         <div>
         <nav class="dashboard-nav">
           <ul>
-            <li><h1><a href="#">Dashboard</a></h1></li><hr style="color: aliceblue;">
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Settings</a></li><hr style="color: aliceblue;">
+            <li><h1><a href="#">Dashboard</a></h1></li><hr style="color: aliceblue;"><br>
+            <li><a href="../recordlist/product_record.jsp">Products</a></li>
+            <li><a href="#">Settings</a></li><br><hr style="color: aliceblue;">
             <li><a href="admin_dashboard.jsp">admin dash</a></li>
             <li><a href="customer_dashboard.jsp">customer dash</a></li>
             

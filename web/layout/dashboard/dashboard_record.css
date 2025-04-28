@@ -109,6 +109,9 @@
     margin-bottom: 0.1rem;
 }
 
+
+
+
 .dashboard-nav a {
   color: #fff;
   text-decoration: none;
@@ -157,16 +160,14 @@ body.sb-expand .dashboard-nav {
   
   /*------ dashboard-boxes-styling ------*/
   .dashboard-main {
-    grid-area: main;
+    /* grid-area: main; */
     padding: 1.25rem;
-  
-    display: grid;
-    gap: 1rem;
+
   }
   
   @media (width : 768px) {
     .dashboard-main {
-      grid-template-columns: repeat(4, 1fr);
+      /* grid-template-columns: repeat(4, 1fr); */
     }
   }
   

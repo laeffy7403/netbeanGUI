@@ -5,17 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Record List</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-        }
+
         .container {
-            width: 80%;
+            width: 100%;
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -60,7 +52,8 @@
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #0065C4;
+            color: white;
         }
         tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -168,13 +161,13 @@
         <div class="header">
             <input type="text" class="search-bar" placeholder="Search...">
             <button class="btn btn-refresh">
-        <span class="refresh-icon">⟳</span>
+        <span class="refresh-icon">?</span>
     </button>
             <button class="btn btn-create">
                 <span class="plus-icon">+</span>
             </button>
         </div>
-        <h1>Record List</h1>
+        <!-- <h1>Record List</h1> -->
         <table>
             <thead>
                 <tr>
