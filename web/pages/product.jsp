@@ -7,14 +7,62 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../layout/product.css">
+    <link rel="stylesheet" href="../layout/header.css">
     <title>Browse item</title>
 </head>
 
 <body><br>
     <!--header-->
-    <div id="header-placeholder"></div>
+    <header class="custom-header">
+    <nav>
+        <ul class="menu">
+            <li>
+                <a href="homepage.jsp" class="disable-blue"><b>ABC</b></a>
+            </li>
+            <li class="has-dropdown">
+                <a href="outlet.jsp" class="disable-blue">Outlet</a>
+            </li>
+            <li class="has-dropdown">
+                <a href="product.jsp#phonesection" class="disable-blue">Phone</a>
+            </li>
+            <li class="has-dropdown">
+                <a href="product.jsp#tabletsection" class="disable-blue">Tablet</a>
+            </li>
+            <li class="has-dropdown">
+                <a href="product.jsp#laptopsection" class="disable-blue">Laptop</a>
+            </li>
+            <li class="has-dropdown">
+                <a href="product.jsp#watchsection" class="disable-blue">Watch</a>
+            </li>
+            <li>
+                <a href="about-us.jsp" class="disable-blue">About Us</a>
+            </li>
+            <li class="search-has-dropdown">
+                <button class="search-icon" >
+                <img src="../img/magnifying-glass.svg" title="Search Here"/>
+                </button>
+                <ul class="search-dropdown">
+                <li>
+                    <div class="search-container">
+                        <img src="../img/magnifying-glass.svg" alt="Search Icon" class="search-icon">
+                        <input type="text" class="search-input" placeholder="Search...">
+                        <button>X</button>
+                    </div>
+                </li>
+                </ul>
+            </li>
+            <li>
+              <a href="cart.jsp" class="cart-page"><img src="../img/shopping-bag.svg" title="Your Items"/></a>
+            </li>
+            <li >
+                <a href="profile.jsp" class="profile-icon"><img src="../img/profile.png"  title="Profile" /></a>
+            </li>
+        </ul>
+    </nav>
+</header>
     <br>
 
+    <!-- Secondary Nav bar -->
     <div class="sticky-top">
         <div class="d-flex justify-content-center align-items-center" id="searchbar">
             <div class="search-container shadow-sm">
@@ -31,7 +79,6 @@
             </div>
         </div>
     </div>
-
     <br>
 
     <div class="shoplist">
