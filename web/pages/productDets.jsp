@@ -101,7 +101,7 @@
                 <br>
                 <a class="btn btn-outline-primary" href="">Add to Cart</a>
                 &nbsp;
-                <a class="btn btn-outline-primary" href="product.jsp">← Back to Browsing</a>
+                <a class="btn btn-outline-primary" href="product.jsp"><span>&#8592;</span> Back to Browsing</a>
             </div>
         </div>
     </div>
