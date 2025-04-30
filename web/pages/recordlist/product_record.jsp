@@ -52,8 +52,8 @@
             <li><a href="#">Reports</a></li>
             <li><a href="#">Staff</a></li>
             <li><a href="#">Settings</a></li><br><hr style="color: aliceblue;">
-            <li><a href="customer_dashboard.html">customer dash</a></li>
-            <li><a href="staff_dashboard.html">staff dash</a></li>
+            <li><a href="../user/customer_dashboard.jsp">customer dash</a></li>
+            <li><a href="../user/staff_dashboard.jsp">staff dash</a></li>
           </ul>
         </nav>
         </div>
