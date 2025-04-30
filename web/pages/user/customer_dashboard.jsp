@@ -11,10 +11,6 @@
 <body>
     <header class="dashboard-header">
         <h1>00Aplus - Dashboard</h1>
-        
-        
-        
-        
 
         <div class="header-right">
           <div><img class="icon" src="../../img/shopping-bag.svg" title="Your Items"/></div>
