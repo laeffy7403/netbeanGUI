@@ -12,6 +12,8 @@
             padding: 40px;
             margin-bottom:150px;
             margin-top:150px;
+            
+            
         }
 
         .about-article {
