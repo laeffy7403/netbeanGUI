@@ -63,6 +63,7 @@
       
       <main class="dashboard-main">
         <h1>Product Management</h1>
+        <h1>testing</h1>
         <div id="record_list"></div>
         
 
