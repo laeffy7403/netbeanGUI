@@ -211,14 +211,95 @@
         font-size: 100px;
         font-weight: 700;
         letter-spacing: 8px;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
         color: white;
-        animation: text 3s 1;
+        position: relative;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: text 3s 1, bgPan 10s linear infinite;
+        background-image: linear-gradient(
+            90deg,
+            #ff0000,
+            #ff7700,
+            #ffdd00,
+            #00ff00,
+            #0000ff,
+            #ff00ff,
+            #ff0000
+        );
+        background-size: 200% 100%;
     }
 
+    @keyframes bgPan {
+        0% {
+            background-position: 0% center;
+        }
+        100% {
+            background-position: -200% center;
+        }
+    }
+    
+    /* Keep your existing text animation */
+    @keyframes text {
+        0% {
+            color: black;
+            margin-bottom: -40px;
+        }
+        30% {
+            letter-spacing: 25px;
+            margin-bottom: -40px;
+        }
+        85% {
+            letter-spacing: 8px;
+            margin-bottom: -40px;
+        }
+    }
+    
+
+    .motivation .text2,
+    .motivation .text3 {
+        display: block;
+        position: relative;
+        background: linear-gradient(90deg, 
+            #000000, 
+            #333333, 
+            #666666, 
+            #999999, 
+            #cccccc, 
+            #cccccc,
+            #999999,
+            #666666,
+            #333333,
+            #000000);
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: bgScroll 8s linear infinite;
+    }
+    
     .motivation .text2 {
-        font-size: 60px;
-        color: #6ab04c;
+        font-size: 45px;
+        font-weight: 600;
+        margin-top: 15px;
+        text-transform: uppercase;
+    }
+    
+    .motivation .text3 {
+        font-size: 30px;
+        font-weight: 400;
+        margin-top: 10px;
+        opacity: 0.9;
+    }
+    
+    @keyframes bgScroll {
+        0% {
+            background-position: 0% center;
+        }
+        100% {
+            background-position: -200% center;
+        }
     }
 
     /* Container section (right side) */
@@ -229,6 +310,25 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         width: 100%; /* Ensure it takes up 50% of the parent */
         margin-left:70px;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+        text-align: left;
+        margin-left: 50px;
+        display: none;
+    }
+    
+    .form-group.error input,
+    .form-group.error select {
+        border-color: #dc3545;
+    }
+    
+    .form-group.success input,
+    .form-group.success select {
+        border-color: #28a745;
     }
 
 
