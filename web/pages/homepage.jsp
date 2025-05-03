@@ -94,7 +94,7 @@
     });
     
 
-    fetch("promotion_carousel.jsp")
+    fetch("promotion_carousel.html")
         .then(response => response.text())
         .then(data => {
         document.getElementById("carousel-container").innerHTML = data;
@@ -174,7 +174,7 @@ function initializeCarousel() {
 
 
 
-    fetch("product-grid-carousel.jsp")
+    fetch("product-grid-carousel.html")
     .then(response => response.text())
     .then(data => {
         document.getElementById("product-grid-carousel").innerHTML = data;
