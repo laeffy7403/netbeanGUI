@@ -8,7 +8,7 @@ import java.sql.*;
 
 @WebServlet(name = "approvePayment", urlPatterns = {"/approvePayment"})
 public class ApprovePaymentServlet extends HttpServlet {
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -28,9 +28,8 @@ public class ApprovePaymentServlet extends HttpServlet {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
 
             // Connect to database
-            try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/payments", "username", "password");
-                 PreparedStatement stmt = conn.prepareStatement("UPDATE payments SET status = 'approved' WHERE id = ?")) {
-                
+            try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/payments", "username", "password"); PreparedStatement stmt = conn.prepareStatement("UPDATE payments SET status = 'approved' WHERE id = ?")) {
+
                 stmt.setInt(1, id);
                 int updated = stmt.executeUpdate();
 
@@ -38,7 +37,7 @@ public class ApprovePaymentServlet extends HttpServlet {
                     response.sendRedirect("pages/admin.jsp?message=Payment approved successfully");
 
                 } else {
-                    response.sendRedirect("admin.jsp?error=Payment not found");
+                    response.sendRedirect("pages/admin.jsp?message=Payment not found");
                 }
             }
 

@@ -22,7 +22,7 @@
             background-color: #f2f2f2;
         }
         img {
-            width: 300px; /* Bigger image */
+            width: 200px; 
             height: auto;
         }
         .message {
@@ -73,7 +73,10 @@
             <td><%= name %></td>
             <td><%= email %></td>
             <td><img src="<%= request.getContextPath() + "/uploads/" + screenshotPath %>" alt="Screenshot"/></td>
-            <td><a href="<%= request.getContextPath() %>/approvePayment?id=<%= id %>">Approve</a></td>
+            <td>
+                <a href="<%= request.getContextPath() %>/approvePayment?id=<%= id %>">Approve</a> |
+                <a href="<%= request.getContextPath() %>/rejectPayment?id=<%= id %>" onclick="return confirm('Are you sure you want to reject this payment?');">Reject</a>
+            </td>
         </tr>
         <%
             }
