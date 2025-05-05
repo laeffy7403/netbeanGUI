@@ -26,7 +26,7 @@
             <li class="has-dropdown">
                 <a href="product.jsp" class="disable-blue">Phone</a>
                 <ul class="dropdown">
-                    <li><a href="product.jsp">Phone 1</a></li>
+                    <li><a href="product.jsp#phonesection">Phone 1</a></li>
                     <li><a href="product.jsp#phonesection">iPhone 15 Pro</a></li>
                     <li><a href="product.jsp#phonesection">iPhone SE</a></li>
                 </ul>
@@ -51,8 +51,8 @@
                 <a href="product.jsp#watchsection" class="disable-blue">Watch</a>
                 <ul class="dropdown">
                     <li><a href="product.jsp#watchsection">Watch 15</a></li>
-                    <li><a href="product.html#watchsection">Watch 15 Pro</a></li>
-                    <li><a href="product.html#watchsection">Watch SE</a></li>
+                    <li><a href="product.jsp#watchsection">Watch 15 Pro</a></li>
+                    <li><a href="product.jsp#watchsection">Watch SE</a></li>
                 </ul>
             </li>
             <li>

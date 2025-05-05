@@ -91,10 +91,10 @@
             <div class="footer-section">
                 <h3>Products</h3>
                 <ul>
-                    <li><a href="#">Phone</a></li>
-                    <li><a href="#">Tablet</a></li>
-                    <li><a href="#">Watch</a></li>
-                    <li><a href="#">Laptop</a></li>
+                    <li><a href="product.jsp#phonesection">Phone</a></li>
+                    <li><a href="product.jsp#tabletsection">Tablet</a></li>
+                    <li><a href="product.jsp#watchsection">Watch</a></li>
+                    <li><a href="product.jsp#laptopsection">Laptop</a></li>
                 </ul>
             </div>
     

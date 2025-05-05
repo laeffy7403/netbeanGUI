@@ -1,3 +1,5 @@
+<%@ page language="java" %>
+<%@ page import="java.sql.*, java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +15,29 @@
     }
 </style>
 <body>
+    
+    <%
+        String dbURL = "jdbc:derby://localhost:1527/techdb";
+        String dbUser = "nbuser";
+        String dbPass = "nbuser";
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+
+            // Fetch products
+            String getCart = "SELECT c.*, p.image_url, p.category FROM CART c JOIN PRODUCTS p ON c.product_id = p.product_id WHERE customer_id = 1000"; //need change user ID, make it follow session
+            stmt = conn.prepareStatement(getCart);
+            rs = stmt.executeQuery();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    %>
+    
     <div id="header-placeholder"></div>
     <div class="container py-5">
         <h1 class="mb-5">Your Shopping Bag</h1>
@@ -21,56 +46,47 @@
                 <!-- Cart Items -->
                 <div class="card mb-4">
                     <div class="card-body">
+                        
+                        <% double total = 0.0;
+                         while(rs != null && rs.next()) { 
+                        total+= rs.getDouble("subtotal"); 
+                        double totalEach = rs.getDouble("price")*rs.getInt("quantity"); %>
                         <div class="row cart-item mb-3">
                             <div class="col-md-3">
-                                <img src="https://via.placeholder.com/100" alt="Product 1" class="img-fluid rounded">
+                                <img src="<%= rs.getString("image_url") %>" alt="Product 1" class="img-fluid rounded" 
+                                     style="">
                             </div>
                             <div class="col-md-5">
-                                <h5 class="card-title">Product 1</h5>
-                                <p class="text-muted">Category: Electronics</p>
+                                <h5 class="card-title"><%= rs.getString("product_name") %></h5>
+                                <p class="text-muted">Category: <%= rs.getString("category") %></p>
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button">-</button>
-                                    <input style="max-width:100px" type="text" class="form-control form-control-sm text-center quantity-input" value="1">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button">+</button>
+                                    <p class="fw-semibold mb-0">Quantity: <%= rs.getInt("quantity") %></p>
+                                    <p class="text-muted">RM<%= rs.getDouble("price") %>/unit</p>
                                 </div>
                             </div>
                             <div class="col-md-2 text-end">
-                                <p class="fw-bold">$99.99</p>
+                                <p class="fw-bold">RM<%= totalEach %></p>
                                 <button class="btn btn-sm btn-outline-danger">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
                         </div>
+                        <!--divide line-->
                         <hr>
-                        <div class="row cart-item">
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/100" alt="Product 2" class="img-fluid rounded">
+                        <!--divide line-->
+                        <% } if (rs == null) %>
+                            <div>
+                                <h5 style="text-align: center">End Of Cart</h5>
                             </div>
-                            <div class="col-md-5">
-                                <h5 class="card-title">Product 2</h5>
-                                <p class="text-muted">Category: Clothing</p>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="input-group">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button">-</button>
-                                    <input style="max-width:100px" type="text" class="form-control form-control-sm text-center quantity-input" value="2">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-end">
-                                <p class="fw-bold">$49.99</p>
-                                <button class="btn btn-sm btn-outline-danger">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        </div>
+                        
+                        
                     </div>
                 </div>
                 <!-- Continue Shopping Button -->
                 <div class="text-start mb-4">
-                    <a href="homepage.jsp" class="btn btn-outline-primary">
+                    <a href="product.jsp" class="btn btn-outline-primary">
                         <i class="bi bi-arrow-left me-2"></i>Continue Shopping
                     </a>
                 </div>
@@ -82,20 +98,21 @@
                         <h5 class="card-title mb-4">Order Summary</h5>
                         <div class="d-flex justify-content-between mb-3">
                             <span>Subtotal</span>
-                            <span>$199.97</span>
+                            <span>RM<%= total %></span>
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <span>Shipping</span>
                             <span>$10.00</span>
                         </div>
                         <div class="d-flex justify-content-between mb-3">
-                            <span>Tax</span>
-                            <span>$20.00</span>
+                            <% double taxedTotal = Double.parseDouble(String.format("%.2f", total*0.16)); %>
+                            <span>Tax (16%)</span>
+                            <span>RM<%= taxedTotal %></span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between mb-4">
                             <strong>Total</strong>
-                            <strong>$229.97</strong>
+                            <strong>RM<%= taxedTotal+total+10 %></strong> <!-- +10 is shipping -->
                         </div>
                         <button class="btn btn-primary w-100">Proceed to Checkout</button>
                     </div>
@@ -114,8 +131,6 @@
         </div>
     </div>
 
-    <br><br><br><br><br><br><br><br>
-    
     <div id="footer-placeholder"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
