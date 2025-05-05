@@ -390,7 +390,7 @@
                 </div>
             </div>
             <div class="container">
-                <form id="paymentForm" action="processPayment.jsp" method="post">
+                <form method="post" action="${pageContext.request.contextPath}/UploadServlet" enctype="multipart/form-data">
                     <div class="form-section">
                         <h4>Billing Address</h4>
                         <div class="form-group">
@@ -415,17 +415,17 @@
                     <div class="form-section">
 
                         </br><h4>Payment Verification</h4>
-                        <form method="post" action="UploadServlet" enctype="multipart/form-data">
-                            <div class="form-group">
-                                
-                                <img src="${pageContext.request.contextPath}/img/tng-qr.jpg" alt="TNG QR Code" width="350">
-                                <label style="color:red;font-size:15px;">Please Scan to Pay with TNG ,after make payment please provide a screenshot to verify</label><br>
-                            </div>      
-                                
-                                <label for="paymentProof" style="font-family:sans-serif;font-size:18px; ">Upload Screenshot:</label>
-                                <input type="file" id="paymentProof" name="paymentProof" required>
-                       
-                        </form>
+
+                        <div class="form-group">
+
+                            <img src="${pageContext.request.contextPath}/img/tng-qr.jpg" alt="TNG QR Code" width="350">
+                            <label style="color:red;font-size:15px;">Please Scan to Pay with TNG ,after make payment please provide a screenshot to verify</label><br>
+                        </div>      
+
+                        <label for="paymentProof" style="font-family:sans-serif;font-size:18px; ">Upload Screenshot:</label>
+                        <input type="file" id="paymentProof" name="paymentProof" required>
+
+
 
                         <div class="links">
                             <p>Already submitted a payment? <a href="check-status.jsp">Check your payment status</a></p>
@@ -433,9 +433,7 @@
 
                     </div>
                     <div class="form-group">
-                        <button type="button" id="tng-mock-button" class="tng-button">
-                            <img src="${pageContext.request.contextPath}/images/tng-logo.png" alt="Submit Payment" width="120">
-                        </button>
+                        <input type="submit" value="Upload Payment" style="width:450px;">
                     </div>
                 </form>
             </div>
@@ -448,7 +446,7 @@
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 // Form Validation
-                const paymentForm = document.getElementById('paymentForm');
+                const paymentForm = document.querySelector('form'); // Select the form element
 
                 // Validation functions
                 const validateFullName = () => {
@@ -517,55 +515,31 @@
                         return true;
                     }
                 };
-                                            
-                               
-                };
 
-                // Function to validate all fields for use by the TNG button handler
+                // Function to validate all required fields
                 const validateForm = () => {
                     const isFullNameValid = validateFullName();
                     const isEmailValid = validateEmail();
                     const isAddressValid = validateAddress();
 
-                    return isFullNameValid && isEmailValid && isAddressValid &&
-                            isCardNumberValid && isExpMonthValid && isExpYearValid && isCVVValid;
+                    // Check if file is selected
+                    const fileInput = document.getElementById('paymentProof');
+                    let isFileValid = true;
+
+                    if (!fileInput.files || fileInput.files.length === 0) {
+                        isFileValid = false;
+                        alert('Please select a payment proof screenshot');
+                    }
+
+                    return isFullNameValid && isEmailValid && isAddressValid && isFileValid;
                 };
 
                 // Real-time validation
                 document.getElementById('fullName').addEventListener('blur', validateFullName);
                 document.getElementById('email').addEventListener('blur', validateEmail);
-                document.getElementById('address').addEventListener('blur', validateAddress);                           
+                document.getElementById('address').addEventListener('blur', validateAddress);
 
-                // TNG button click handler
-                document.getElementById('tng-mock-button').addEventListener('click', function () {
-                    if (!validateForm()) {
-                        // If validation fails, scroll to the first error
-                        const firstError = document.querySelector('.error');
-                        if (firstError) {
-                            firstError.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        }
-                        return;
-                    }
-
-                    
-                });
-
-                // Form submission
-                paymentForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-
-                    if (validateForm()) {
-                        // Form is valid - proceed with submission
-                        alert('Payment submitted successfully!');
-                        this.submit();
-                    } else {
-                        // Scroll to the first error
-                        const firstError = document.querySelector('.error');
-                        if (firstError) {
-                            firstError.scrollIntoView({behavior: 'smooth', block: 'center'});
-                        }
-                    }
-                });
+                
             });
         </script>
     </body>

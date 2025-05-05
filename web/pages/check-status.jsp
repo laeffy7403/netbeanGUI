@@ -13,6 +13,7 @@
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            margin: 20px auto;
         }
         .form-field {
             margin-bottom: 15px;
@@ -48,10 +49,59 @@
             border-radius: 4px;
             border-left: 5px solid #f44336;
         }
+        
+        /* Header Styles (same as payment.jsp) */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #28a745;
+        }
+
+        .header .logo img {
+            width: 80px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .header .header-text h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #fff;
+        }
+
+        .header .header-text h2 {
+            margin: 5px 0;
+            font-size: 20px;
+            color: #ddd;
+        }
+
+        .header .header-text h3 {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #bbb;
+        }
     </style>
+    <script>
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            if (!email || email.trim() === "") {
+                alert("Email is required");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
-    <h2>Check Your Payment Status</h2>
+    <!-- Include Header -->
+    <jsp:include page="header.jsp" />
+    
+    <h2 style="text-align: center; margin-top: 40px;">Check Your Payment Status</h2>
     
     <div class="form-container">
         <% if (request.getAttribute("error") != null) { %>
@@ -60,18 +110,20 @@
             </div>
         <% } %>
         
-        <form action="CheckPaymentStatusServlet" method="post">
+        <!-- Using absolute path to ensure correct routing -->
+        <form action="/TestPayment/CheckPaymentStatusServlet" method="post" onsubmit="return validateForm()">
             <div class="form-field">
                 <label for="email">Enter your email address:</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <button type="submit">Check Status</button>
             <div class="home-link">
-            <a href="index.jsp">Back to Home</a>
+                <a href="index.jsp">Back to Home</a>
             </div>
         </form>
     </div>
     
-    
+    <!-- Include Footer -->
+    <jsp:include page="footer.jsp" />
 </body>
 </html>
