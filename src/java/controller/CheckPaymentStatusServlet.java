@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import java.sql.*;
 import java.util.*;
 
-@WebServlet(name = "checkPaymentStatus", urlPatterns = {"/CheckPaymentStatusServlet"})
+@WebServlet(name = "CheckPaymentStatusServlet", urlPatterns = {"/pages/CheckPaymentStatusServlet"})
 public class CheckPaymentStatusServlet extends HttpServlet {
     
     @Override
@@ -19,13 +19,26 @@ public class CheckPaymentStatusServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("CheckPaymentStatusServlet: doPost method called");
         
+        // Debug info - print all request parameters
+        System.out.println("Request URI: " + request.getRequestURI());
+        System.out.println("Context Path: " + request.getContextPath());
+        System.out.println("Servlet Path: " + request.getServletPath());
+        
+        // List all parameters
+        System.out.println("All request parameters:");
+        Enumeration<String> paramNames = request.getParameterNames();
+        while (paramNames.hasMoreElements()) {
+            String paramName = paramNames.nextElement();
+            System.out.println(paramName + ": " + request.getParameter(paramName));
+        }
+        
         String email = request.getParameter("email");
         System.out.println("Email parameter received: " + email);
         
         if (email == null || email.trim().isEmpty()) {
             System.out.println("Email is empty or null");
             request.setAttribute("error", "Email is required");
-            request.getRequestDispatcher("/check-status.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/check-status.jsp").forward(request, response);
             return;
         }
         
@@ -71,7 +84,7 @@ public class CheckPaymentStatusServlet extends HttpServlet {
             System.out.println("Forwarding to payment-status-results.jsp");
             
             // Forward to the results page
-            request.getRequestDispatcher("/payment-status-results.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/payment-status-results.jsp").forward(request, response);
             
         } catch (ClassNotFoundException e) {
             System.err.println("Database driver not found: " + e.getMessage());
@@ -81,7 +94,7 @@ public class CheckPaymentStatusServlet extends HttpServlet {
             request.setAttribute("error", "Database driver not found: " + e.getMessage());
             
             // Forward back to the check status page
-            request.getRequestDispatcher("/check-status.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/check-status.jsp").forward(request, response);
         } catch (SQLException e) {
             System.err.println("Database error: " + e.getMessage());
             e.printStackTrace();
@@ -90,7 +103,7 @@ public class CheckPaymentStatusServlet extends HttpServlet {
             request.setAttribute("error", "Database error: " + e.getMessage());
             
             // Forward back to the check status page
-            request.getRequestDispatcher("/check-status.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/check-status.jsp").forward(request, response);
         } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
             e.printStackTrace();
@@ -99,7 +112,7 @@ public class CheckPaymentStatusServlet extends HttpServlet {
             request.setAttribute("error", "An unexpected error occurred: " + e.getMessage());
             
             // Forward back to the check status page
-            request.getRequestDispatcher("/check-status.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/check-status.jsp").forward(request, response);
         }
     }
     

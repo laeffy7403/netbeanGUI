@@ -49,8 +49,7 @@
             border-radius: 4px;
             border-left: 5px solid #f44336;
         }
-        
-        /* Header Styles (same as payment.jsp) */
+
         .header {
             display: flex;
             align-items: center;
@@ -98,32 +97,30 @@
     </script>
 </head>
 <body>
-    <!-- Include Header -->
-    <jsp:include page="header.jsp" />
-    
+
+ 
+
     <h2 style="text-align: center; margin-top: 40px;">Check Your Payment Status</h2>
-    
+
     <div class="form-container">
         <% if (request.getAttribute("error") != null) { %>
             <div class="error-message">
                 <%= request.getAttribute("error") %>
             </div>
         <% } %>
-        
-        <!-- Using absolute path to ensure correct routing -->
-        <form action="/TestPayment/CheckPaymentStatusServlet" method="post" onsubmit="return validateForm()">
+
+        <form action="CheckPaymentStatusServlet" method="post" onsubmit="return validateForm()">
             <div class="form-field">
                 <label for="email">Enter your email address:</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <button type="submit">Check Status</button>
             <div class="home-link">
-                <a href="index.jsp">Back to Home</a>
+                <a href="homepage.jsp">Back to Home</a>
             </div>
         </form>
     </div>
-    
-    <!-- Include Footer -->
-    <jsp:include page="footer.jsp" />
+
+
 </body>
 </html>
