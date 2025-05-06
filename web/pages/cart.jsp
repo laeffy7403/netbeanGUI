@@ -108,8 +108,21 @@
                                 <span>RM<%= total %></span>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
-                                <span>Shipping</span>
-                                <span>RM20.00</span>
+                                <%  double shippingFee;
+                                    String noti;
+                                if (total >= 1000){
+                                    shippingFee = 0.0;
+                                    noti = "(spend RM1000 and above)";
+                                }else if (total <= 0){
+                                    shippingFee = 0.0;
+                                    noti = "";
+                                }else{
+                                    shippingFee = 25.00; 
+                                    noti = "(spend less than RM1000)";
+                                }
+                                %>
+                                <span>Shipping <%= noti %></span>
+                                <span>RM<%= shippingFee %></span>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <% double taxedTotal = Double.parseDouble(String.format("%.2f", total * 0.16));%>
@@ -119,7 +132,7 @@
                             <hr>
                             <div class="d-flex justify-content-between mb-4">
                                 <strong>Total</strong>
-                                <strong>RM<%= taxedTotal + total + 20%></strong> <!-- +10 is shipping -->
+                                <strong>RM<%= taxedTotal + total + shippingFee%></strong> <!-- +10 is shipping -->
                             </div>
                             <button class="btn btn-primary w-100">Proceed to Checkout</button>
                         </div>
