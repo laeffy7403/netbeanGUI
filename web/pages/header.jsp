@@ -56,6 +56,9 @@
                 </ul>
             </li>
             <li>
+                <a href="myRating.jsp" class="disable-blue">My Rating</a>
+            </li>
+            <li>
                 <a href="about-us.jsp" class="disable-blue">About Us</a>
             </li>
 <!--            <li class="search-has-dropdown">

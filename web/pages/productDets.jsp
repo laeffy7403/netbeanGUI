@@ -115,7 +115,7 @@
 
                     try {
                         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/techdb", "nbuser", "nbuser");
-                        String getReview = "SELECT c.username, r.rating, r.review FROM rating r JOIN customer c ON r.customer_id = c.customer_id WHERE r.product_id = ?";
+                        String getReview = "SELECT c.username, r.rating_id, r.rating, r.review FROM rating r JOIN customer c ON r.customer_id = c.customer_id WHERE r.product_id = ?";
                         stmt2 = conn.prepareStatement(getReview);
                         stmt2.setInt(1, pID);
                         rs2 = stmt2.executeQuery();
@@ -135,6 +135,7 @@
                     <div class="review-content">
                         <p><%= rs2.getString("review")%></p>
                     </div>
+                    <a href="readReply.jsp?id=<%= rs2.getString("rating_id") %>" style="text-decoration: none"><p style="margin-bottom:0;">( see reply from us )</p></a>
                 </div>
                 <%
                     }
