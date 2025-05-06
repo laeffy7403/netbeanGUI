@@ -47,8 +47,9 @@
                     <div class="card mb-4">
                         <div class="card-body">
 
-                            <% double total = 0.0;
+                            <% double total = 0.0; int count = 0;
                                 while (rs != null && rs.next()) {
+                                    count++;
                                     total += rs.getDouble("subtotal");
                                     double totalEach = rs.getDouble("price") * rs.getInt("quantity");%>
                             <div class="row cart-item mb-3">
@@ -131,22 +132,16 @@
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between mb-4">
+                                <% double all = Double.parseDouble(String.format("%.2f", taxedTotal + total + shippingFee));%>
                                 <strong>Total</strong>
-                                <strong>RM<%= taxedTotal + total + shippingFee%></strong> <!-- +10 is shipping -->
+                                <strong>RM<%= all%></strong> <!-- +10 is shipping -->
                             </div>
-                            <button class="btn btn-primary w-100">Proceed to Checkout</button>
+                            <% if (count > 0){ %>
+                            <a href="payment.jsp?total=<%= all %>"><button class="btn btn-primary w-100" <%="disabled" %> >Proceed to Checkout</button></a>
+                            <% } %>
                         </div>
                     </div>
-                    <!-- Promo Code -->
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title mb-3">Apply Promo Code</h5>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Enter promo code">
-                                <button class="btn btn-outline-secondary" type="button">Apply</button>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
