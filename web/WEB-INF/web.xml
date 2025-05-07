@@ -20,10 +20,7 @@
         <servlet-name>SignupController</servlet-name>
         <servlet-class>controller.SignupController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>userDAO</servlet-name>
-        <servlet-class>model.userDAO</servlet-class>
-    </servlet>
+    
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -44,10 +41,7 @@
         <servlet-name>SignupController</servlet-name>
         <url-pattern>/SignupController</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>userDAO</servlet-name>
-        <url-pattern>/userDAO</url-pattern>
-    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
