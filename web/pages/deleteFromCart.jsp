@@ -10,7 +10,8 @@
         String dbUser = "nbuser";
         String dbPass = "nbuser";
 
-        // Get the product ID and quantity from the request
+        // Get the product ID and quantity from the request (webpage link)
+        // exp. deleteFromCart.jsp?productId=1000&customerId=1010
         String productIdParam = request.getParameter("productId");
         String customerIdParam = request.getParameter("customerId");
 

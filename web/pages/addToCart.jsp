@@ -15,7 +15,8 @@
         String dbUser = "nbuser";
         String dbPass = "nbuser";
 
-        // Get the product ID and quantity from the request
+        // Get the product ID and quantity from the request (webpage link)
+        // exp. addToCart.jsp?productId=1000&customerId=1010
         String productIdParam = request.getParameter("productId");
         String quantityParam = request.getParameter("quantity");
 
@@ -28,6 +29,7 @@
             if (quantity > 0) {
                 conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
 
+                // get product details based on product ID from link parameter
                 String getProd = "SELECT product_name, price FROM PRODUCTS WHERE product_id = ?";
                 stmt1 = conn.prepareStatement(getProd);
                 stmt1.setInt(1, productId);
@@ -37,6 +39,7 @@
                     String prodName = rs.getString("product_name");
                     double price = rs.getDouble("price");
 
+                    // if cart already have existed product when u add new product to cart, change the quantity instead of add new record to cart
                     String checkDupe = "SELECT quantity FROM CART WHERE product_id = ?";
                     stmt2 = conn.prepareStatement(checkDupe);
                     stmt2.setInt(1, productId);
@@ -56,6 +59,7 @@
                         }
                     } else {
 
+                        // insert :D
                         String insertCart = "INSERT INTO CART (customer_id, product_id, product_name, quantity, price, subtotal) VALUES (?, ?, ?, ?, ?, ?)";
                         stmt = conn.prepareStatement(insertCart);
                         stmt.setInt(1, 1000); // customer_id placeholder
