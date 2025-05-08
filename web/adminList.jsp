@@ -1,12 +1,5 @@
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin List</title>
-</head>
-<body>
-
 <%
     String action = request.getParameter("action");
     String idParam = request.getParameter("id");
@@ -49,29 +42,88 @@
         }
 %>
 
-<% String message = request.getParameter("message"); %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="layout/dashboard/dashboard_record.css">
+    <link rel="stylesheet" href="layout/icon_n_search_bar.css">
+    <link rel="stylesheet" href="layout/record.css">
+
+    <title>product record list</title>
+</head>
+<body>
+    
+    <header class="dashboard-header">
+
+        <div class="header-right">
+
+          <input type="text" class="search-bar" placeholder="Search...">
+          <div><img class="icon" src="../../img/profile.svg"  title="Profile" /></div>
+      </div>
+      </header>
+      
+      <aside class="dashboard-sidebar">
+        <!-- <div class="logo">&#9812;</div> -->
+        <button type="button" id="resize">
+          &#9776;
+        </button>
+
+        <div>
+        <nav class="dashboard-nav">
+          <ul>
+            <li><h1><a href="#">Dashboard</a></h1></li><hr style="color: aliceblue;"><br>
+            <li><a href="#">Orders</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Ratings</a></li>
+            <li><a href="#">Payments</a></li>
+            <li><a href="#">Settings</a></li><br>
+            <li><h1><a href="#">User Management</a></h1></li><hr style="color: aliceblue;"><br>
+            <li><a href="#">Admins</a></li>
+            <li><a href="#">Staffs</a></li>
+            <li><a href="#">Customers</a></li>
+          </ul>
+        </nav>
+        </div>
+
+      </aside>
+      
+      
+      <main class="dashboard-main">
+        <h1>Product Management</h1><br>
+        <% String message = request.getParameter("message"); %>
 <% if ("created".equals(message)) { %>
-    <div class="msg success">Admin successfully created!</div>
+    <div class="success-box">New Admin successfully created!</div>
 <% } else if ("updated".equals(message)) { %>
-    <div class="msg success">Admin successfully updated!</div>
+    <div class="success-box">Admin successfully updated!</div>
 <% } else if ("deleted".equals(message)) { %>
-    <div class="msg success">Admin successfully deleted!</div>
+    <div class="warning-box">Admin successfully deleted!</div>
 <% } %>
-
-<h2>Admin Table</h2>
-<a href="adminForm.jsp">+ Create New Admin</a>
-<br><br>
-
-<table border="1" cellpadding="10">
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Email</th>
-        <th>Actions</th>
-    </tr>
-
-<%
+        <div class="container">
+          <div class="header">
+              <input type="text" class="search-bar" placeholder="Search...">
+              <button class="btn btn-refresh">
+                  <a href="adminList.jsp"><span class="refresh-icon">⟳</span></a>
+      </button>
+              <button class="btn btn-create">
+                  <a href="adminForm.jsp"><span class="plus-icon">+</span></a>
+              </button>
+          </div>
+          <!-- <h1>Record List</h1> -->
+          <table>
+              <thead>
+                  <tr>
+                      <!--<th></th>-->
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Password</th>
+                      <th>Email</th>
+                      <!--<th>Phone</th>-->
+                      <th>Actions</th>
+                  </tr>
+                  <%
         String sql = "SELECT * FROM ADMIN";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
@@ -85,7 +137,9 @@
 
             if (editId != null && Integer.toString(id).equals(editId)) {
 %>
-    <form method="post" action="adminList.jsp">
+              </thead>
+              <tbody>
+                  <form method="post" action="adminList.jsp">
         <input type="hidden" name="action" value="update">
         <input type="hidden" name="id" value="<%= id %>">
         <tr>
@@ -99,7 +153,7 @@
             </td>
         </tr>
     </form>
-<%
+                <%
             } else {
 %>
     <tr>
@@ -123,12 +177,29 @@
         out.println("Error: " + e.getMessage());
     }
 %>
-</table>
+
+              </tbody>
+          </table><br>
+      </div>
+       <br><br><br>
+      </main>
+      
+      <footer class="dashboard-footer">
+        <code><p>&copy; 2023 00Aplus. All rights reserved.</p>
+      </footer>
 
 </body>
 </html>
 
-<style>
-    .msg { padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
-    .success { background-color: #d4edda; color: #155724; }
-</style>
+<!-- sidebar-button-animation -->
+<script>
+const resizeBtn = document.getElementById("resize");
+resizeBtn.addEventListener("click", function (e) {
+e.preventDefault();
+document.body.classList.toggle("sb-expand");
+});
+</script>
+
+
+
+
