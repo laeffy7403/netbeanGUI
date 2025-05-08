@@ -27,7 +27,7 @@
             <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
         <div class="text-center mt-3">
-            <a href="pages/homepage.jsp" class="text-decoration-none">Continue as Guest</a>
+            <a href="pages/index.jsp" class="text-decoration-none">Continue as Guest</a>
         </div>
     </div>
 
