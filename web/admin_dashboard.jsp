@@ -9,7 +9,6 @@
 </head>
 <body>
     <header class="dashboard-header">
-        <!-- <h1>00Aplus - Dashboard</h1> -->
 
         <div class="header-right">
 

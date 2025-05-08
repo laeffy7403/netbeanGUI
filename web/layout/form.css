@@ -6,7 +6,7 @@ body {
         }
 
         .form-container {
-            max-width: 1200px;
+            max-width: 1500px;
             margin: 0 auto;
             background: #fff;
             padding: 20px;
@@ -61,3 +61,46 @@ body {
             background-color: #f44336;
             color: white;
         }
+        
+        
+        .success-box {
+    width: 100%;
+    max-width: max;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
+    border: 1px solid #155724; /* Dark green border */
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.warning-box {
+    width: 100%;
+    max-width: max;
+    margin: 20px auto;
+    padding: 10px;
+            background-color: #ffcccb;
+            color: #a94442;
+            border: 1px solid #a94442;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notice-box {
+    width: 100%;
+    max-width: max;
+    margin: 20px auto;
+    padding: 10px;
+            background-color: #fff3cd; /* Light yellow background */
+            color: #856404; /* Dark yellow text */
+            border: 1px solid #856404; 
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

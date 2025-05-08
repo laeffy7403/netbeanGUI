@@ -51,12 +51,14 @@
     <title>Create Order</title>
     <style>
         
-        .msg { padding: 10px; margin: 10px 0; }
+        .msg { padding: 15px; margin: 10px; width: 100%;}
         .success { background-color: #d4edda; color: #155724; }
         .error { background-color: #f8d7da; color: #721c24; }
+        .notice { background-color: #fff3cd; color: #856404; }
     </style>
 </head>
 <body>
+   
     
 <div class="form-container">
     <a href="orderList.jsp"><-- Back to Order List</a>

@@ -177,3 +177,17 @@ transform: scale(1.1); /* Slightly enlarge on hover */
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.notice-box {
+    width: 100%;
+    max-width: max;
+    margin: 20px auto;
+    padding: 10px;
+            background-color: #fff3cd; /* Light yellow background */
+            color: #856404; /* Dark yellow text */
+            border: 1px solid #856404; 
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
