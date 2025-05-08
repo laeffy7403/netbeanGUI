@@ -122,7 +122,7 @@
       
       
       <main class="dashboard-main">
-        <h1>Product Management</h1><br>
+        <h1>Product Management staff exclusive (no delete function)</h1><br>
         
         <% if (message != null) { %><div class="success-box"><%= message %></div><% } %>
         <% if (error != null) { %><div class="error">Error: <%= error %></div><% } %>
