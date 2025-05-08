@@ -93,6 +93,7 @@
       
       <main class="dashboard-main">
         <h1>Product Management</h1><br>
+        
         <% String message = request.getParameter("message"); %>
 <% if ("created".equals(message)) { %>
     <div class="success-box">New Admin successfully created!</div>
@@ -101,6 +102,7 @@
 <% } else if ("deleted".equals(message)) { %>
     <div class="warning-box">Admin successfully deleted!</div>
 <% } %>
+
         <div class="container">
           <div class="header">
               <input type="text" class="search-bar" placeholder="Search...">
