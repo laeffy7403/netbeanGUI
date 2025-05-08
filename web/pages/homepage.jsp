@@ -39,9 +39,14 @@
 
     <br><br><br><br>    
 
+    <!-- Top Product Categories Section -->
+    <section class="top-categories">
+        <h3>Top Product Categories</h3>
+        <div id="product-grid-carousel"></div>
+    </section>
 
     <!-- space   -->
-    <br><br>
+    <br><br><br><br><br><br>
 
     <div id="footer-placeholder"></div>
 
