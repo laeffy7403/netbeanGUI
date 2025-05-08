@@ -1,5 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%
     String action = request.getParameter("action");
     String idParam = request.getParameter("id");
@@ -13,11 +14,11 @@
         // DELETE logic
         if ("delete".equals(action) && idParam != null) {
             int id = Integer.parseInt(idParam);
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM ADMIN WHERE ADMIN_ID = ?");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM STAFF WHERE STAFF_ID = ?");
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
-            response.sendRedirect("adminList.jsp?message=deleted");
+            response.sendRedirect("staffList.jsp?message=deleted");
             return;
         }
 
@@ -29,7 +30,7 @@
             String newEmail = request.getParameter("email");
 
             PreparedStatement ps = conn.prepareStatement(
-                "UPDATE ADMIN SET USERNAME=?, PASSWORD=?, EMAIL=? WHERE ADMIN_ID=?"
+                "UPDATE STAFF SET USERNAME=?, PASSWORD=?, EMAIL=? WHERE STAFF_ID=?"
             );
             ps.setString(1, newUsername);
             ps.setString(2, newPassword);
@@ -37,7 +38,7 @@
             ps.setInt(4, id);
             ps.executeUpdate();
             ps.close();
-            response.sendRedirect("adminList.jsp?message=updated");
+            response.sendRedirect("staffList.jsp?message=updated");
             return;
         }
 %>
@@ -92,47 +93,45 @@
       
       
       <main class="dashboard-main">
-        <h1>Admins/Moderators Management</h1><br>
+        <h1>Staff Management</h1><br>
         
         <% String message = request.getParameter("message"); %>
 <% if ("created".equals(message)) { %>
-    <div class="success-box">New Admin successfully created!</div>
+    <div class="success-box">New Staff successfully created!</div>
 <% } else if ("updated".equals(message)) { %>
-    <div class="success-box">Admin successfully updated!</div>
+    <div class="success-box">Staff successfully updated!</div>
 <% } else if ("deleted".equals(message)) { %>
-    <div class="warning-box">Admin successfully deleted!</div>
+    <div class="warning-box">Staff successfully deleted!</div>
 <% } %>
 
         <div class="container">
           <div class="header">
               <input type="text" class="search-bar" placeholder="Search...">
               <button class="btn btn-refresh">
-                  <a href="adminList.jsp"><span class="refresh-icon">⟳</span></a>
+                  <a href="staffList.jsp"><span class="refresh-icon">⟳</span></a>
       </button>
               <button class="btn btn-create">
-                  <a href="adminForm.jsp"><span class="plus-icon">+</span></a>
+                  <a href="staffForm.jsp"><span class="plus-icon">+</span></a>
               </button>
           </div>
           <!-- <h1>Record List</h1> -->
           <table>
               <thead>
                   <tr>
-                      <!--<th></th>-->
                       <th>ID</th>
                       <th>Name</th>
                       <th>Password</th>
                       <th>Email</th>
-                      <!--<th>Phone</th>-->
                       <th>Actions</th>
                   </tr>
-                  <%
-        String sql = "SELECT * FROM ADMIN";
+ <%
+        String sql = "SELECT * FROM STAFF";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
         String editId = request.getParameter("edit");
 
         while (rs.next()) {
-            int id = rs.getInt("ADMIN_ID");
+            int id = rs.getInt("STAFF_ID");
             String username = rs.getString("USERNAME");
             String password = rs.getString("PASSWORD");
             String email = rs.getString("EMAIL");
@@ -141,7 +140,7 @@
 %>
               </thead>
               <tbody>
-                  <form method="post" action="adminList.jsp">
+    <form method="post" action="staffList.jsp">
         <input type="hidden" name="action" value="update">
         <input type="hidden" name="id" value="<%= id %>">
         <tr>
@@ -151,7 +150,7 @@
             <td><input type="email" name="email" value="<%= email %>"></td>
             <td>
                 <input type="submit" value="Save">
-                <a href="adminList.jsp">Cancel</a>
+                <a href="staffList.jsp">Cancel</a>
             </td>
         </tr>
     </form>
@@ -164,8 +163,8 @@
         <td><%= password %></td>
         <td><%= email %></td>
         <td>
-            <a href="adminList.jsp?edit=<%= id %>">Edit</a> |
-            <a href="adminList.jsp?action=delete&id=<%= id %>" onclick="return confirm('Are you sure you want to delete this admin?')">Delete</a>
+            <a href="staffList.jsp?edit=<%= id %>">Edit</a> |
+            <a href="staffList.jsp?action=delete&id=<%= id %>" onclick="return confirm('Are you sure you want to delete this staff?')">Delete</a>
         </td>
     </tr>
 <%
