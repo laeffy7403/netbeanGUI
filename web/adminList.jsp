@@ -74,16 +74,16 @@
         <nav class="dashboard-nav">
           <ul>
             <li><h1><a href="#">Dashboard</a></h1></li><hr style="color: aliceblue;"><br>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Products</a></li>
+            <li><a href="orderList.jsp">Orders</a></li>
+            <li><a href="productCRUD.jsp">Products</a></li>
             <li><a href="#">Reports</a></li>
             <li><a href="#">Ratings</a></li>
             <li><a href="#">Payments</a></li>
             <li><a href="#">Settings</a></li><br>
             <li><h1><a href="#">User Management</a></h1></li><hr style="color: aliceblue;"><br>
-            <li><a href="#">Admins</a></li>
-            <li><a href="#">Staffs</a></li>
-            <li><a href="#">Customers</a></li>
+            <li><a href="adminList.jsp">Admins</a></li>
+            <li><a href="staffList.jsp">Staffs</a></li>
+            <li><a href="customerList.jsp">Customers</a></li>
           </ul>
         </nav>
         </div>
