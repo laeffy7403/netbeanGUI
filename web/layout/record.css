@@ -65,7 +65,7 @@ tr:hover {
     cursor: pointer;
 }
 .btn-create {
-background-color: black; 
+background-color: lightgreen; 
 color: white;
 font-size: 20px;
 font-weight: bold;
@@ -82,7 +82,7 @@ transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-create:hover {
-background-color: grey; 
+background-color: lightgreen; 
 color:white;
 transform: scale(1.1); 
 }
@@ -101,7 +101,7 @@ transform: rotate(360deg);
 }
 
 .btn-refresh {
-background-color: #4CAF50; /* Green background */
+background-color: lightgoldenrodyellow; /* Green background */
 color: white; /* White text */
 font-size: 18px; /* Font size for the refresh icon */
 font-weight: bold;
@@ -118,7 +118,29 @@ transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover eff
 }
 
 .btn-refresh:hover {
-background-color: #388E3C; /* Darker green on hover */
+background-color: lightgoldenrodyellow; /* Darker green on hover */
+transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.btn-gen {
+background-color: lightskyblue; /* Green background */
+color: white; /* White text */
+font-size: 18px; /* Font size for the refresh icon */
+font-weight: bold;
+width: 40px; /* Circular button */
+height: 40px;
+border-radius: 50%; /* Make it a circle */
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+cursor: pointer;
+border: none; /* Remove border */
+transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+.btn-gen:hover {
+background-color: lightskyblue; /* Darker green on hover */
 transform: scale(1.1); /* Slightly enlarge on hover */
 }
 .btn-view {
