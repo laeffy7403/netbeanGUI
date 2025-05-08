@@ -42,15 +42,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="layout/form.css">
     <title>Create Admin</title>
     <style>
+        
         .msg { padding: 10px; margin: 10px 0; }
         .success { background-color: #d4edda; color: #155724; }
         .error { background-color: #f8d7da; color: #721c24; }
     </style>
 </head>
 <body>
-
+    
+<div class="form-container">
+    <a href="adminList.jsp"><-- Back to Admin List</a>
 <h2>Create New Admin</h2>
 
 <% if (isError) { %>
@@ -58,13 +62,26 @@
 <% } %>
 
 <form method="post">
-    Username: <input type="text" name="username" required><br><br>
+    
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" name="username" placeholder="Enter username" required>
+    </div>
+    <div class="form-group">
+        <label for="Password">Password:</label>
+        <input type="password" name="password" placeholder="Enter password" required>
+    </div>
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <input type="email" name="email" placeholder="Enter email" required>
+    </div>
+    
+<!--    Username: <input type="text" name="username" required><br><br>
     Password: <input type="password" name="password" required><br><br>
-    Email: <input type="email" name="email" required><br><br>
+    Email: <input type="email" name="email" required><br><br>-->
     <input type="submit" value="Create Admin">
 </form>
 
-<a href="adminList.jsp">Back to Admin List</a>
-
+</div>
 </body>
 </html>
