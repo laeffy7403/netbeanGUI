@@ -1,3 +1,6 @@
+<link href="layout/dashboard/dashboard_record.css" rel="stylesheet"><!-- comment -->
+<link href="layout/dashboard/dashboard.css" rel="stylesheet"><!-- comment -->
+
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -134,3 +137,5 @@
 </table>
 </body>
 </html>
+
+
