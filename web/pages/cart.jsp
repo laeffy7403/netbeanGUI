@@ -119,7 +119,7 @@
                             <h5 class="card-title mb-4">Order Summary</h5>
                             <div class="d-flex justify-content-between mb-3">
                                 <span>Subtotal</span>
-                                <span>RM<%= total %></span>
+                                <span>RM<%= total %></span> 
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <%  double shippingFee;
