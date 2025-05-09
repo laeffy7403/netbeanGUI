@@ -41,9 +41,8 @@
                 conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
 
                 // Fetch products
-                String getCart = "SELECT c.*, p.image_url, p.category FROM CART c JOIN PRODUCTS p ON c.product_id = p.product_id WHERE customer_id = ?"; //need change user ID, make it follow session
+                String getCart = "SELECT c.*, p.image_url, p.category FROM CART c JOIN PRODUCTS p ON c.product_id = p.product_id WHERE customer_id = 1000"; //need change user ID, make it follow session
                 stmt = conn.prepareStatement(getCart);
-                stmt.setInt(1, userId);
                 rs = stmt.executeQuery();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -59,8 +58,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
 
-                            <% double total = 0.0;
-                                int count = 0;
+                            <% double total = 0.0; int count = 0;
                                 while (rs != null && rs.next()) {
                                     count++;
                                     total += rs.getDouble("subtotal");
@@ -83,7 +81,7 @@
                                 <div class="col-md-2 text-end">
                                     <p class="fw-bold">RM<%= totalEach%></p>
 
-                                    <form action="deleteFromCart.jsp?id=<%= rs.getInt("product_id")%>&customer_id=<%= rs.getInt("customer_id")%>" method="post" onsubmit="return confirm('Are you sure you want to delete this item from your cart?')">
+                                    <form action="deleteFromCart.jsp?id=<%= rs.getInt("product_id") %>&customer_id=<%= rs.getInt("customer_id")%>" method="post" onsubmit="return confirm('Are you sure you want to delete this item from your cart?')">
                                         <input type="hidden" name="productId" value="<%= rs.getInt("product_id")%>">
                                         <input type="hidden" name="customerId" value="<%= rs.getInt("customer_id")%>">
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -124,19 +122,19 @@
                             <div class="d-flex justify-content-between mb-3">
                                 <%  double shippingFee;
                                     String noti;
-                                    if (total >= 1000) {
-                                        shippingFee = 0.0;
-                                        noti = "(spend RM1000 and above)";
-                                    } else if (total <= 0) {
-                                        shippingFee = 0.0;
-                                        noti = "";
-                                    } else {
-                                        shippingFee = 25.00;
-                                        noti = "(spend less than RM1000)";
-                                    }
+                                if (total >= 1000){
+                                    shippingFee = 0.0;
+                                    noti = "(spend RM1000 and above)";
+                                }else if (total <= 0){
+                                    shippingFee = 0.0;
+                                    noti = "";
+                                }else{
+                                    shippingFee = 25.00; 
+                                    noti = "(spend less than RM1000)";
+                                }
                                 %>
-                                <span>Shipping <%= noti%></span>
-                                <span>RM<%= shippingFee%></span>
+                                <span>Shipping <%= noti %></span>
+                                <span>RM<%= shippingFee %></span>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <% double taxedTotal = Double.parseDouble(String.format("%.2f", total * 0.16));%>
@@ -149,12 +147,12 @@
                                 <strong>Total</strong>
                                 <strong>RM<%= all%></strong> <!-- +10 is shipping -->
                             </div>
-                            <% if (count > 0) {%>
-                            <a href="payment.jsp?total=<%= all%>"><button class="btn btn-primary w-100" <%="disabled"%> >Proceed to Checkout</button></a>
-                            <% }%>
+                            <% if (count > 0){ %>
+                            <a href="payment.jsp?total=<%= all %>"><button class="btn btn-primary w-100" <%="disabled" %> >Proceed to Checkout</button></a>
+                            <% } %>
                         </div>
                     </div>
-
+                    
                 </div>
             </div>
         </div>
@@ -203,5 +201,5 @@
                                                         console.error("Error loading footer:", error);
                                                     });
 
-                                        });
+                                        });
 </script>
