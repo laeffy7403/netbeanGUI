@@ -1,4 +1,12 @@
- <!DOCTYPE html>
+<%@ page import="model.Customer" %>
+<%
+    Customer user = (Customer) session.getAttribute("user");
+    if (user == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
