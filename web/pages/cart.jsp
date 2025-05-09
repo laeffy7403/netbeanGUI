@@ -258,3 +258,5 @@
                     console.error("Error loading footer:", error);
                 });
 
+                                        });
+</script>
