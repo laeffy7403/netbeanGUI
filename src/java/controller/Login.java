@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
             session.setAttribute("role", "staff");
             session.setAttribute("username", username);
             session.setAttribute("id", staffId); // 👈 Store staff ID
-            response.sendRedirect("../staff_dashboard.jsp");
+            response.sendRedirect("staff_dashboard.jsp");
         } else if (dao.validateAdmin(username, password)) {
             int adminId = dao.getAdminIdByUsername(username); // You must implement this
             session.setAttribute("role", "admin");
