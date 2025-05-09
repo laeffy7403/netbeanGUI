@@ -2,6 +2,14 @@
 <html lang="en">
 <%@ page language="java" %>
 <%@ page import="java.sql.*, java.util.*" %>
+<%@ page import="model.Customer" %>
+<%
+    Customer user = (Customer) session.getAttribute("user");
+    if (user == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+%>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
