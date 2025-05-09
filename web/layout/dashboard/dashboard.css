@@ -170,6 +170,12 @@ body.sb-expand .dashboard-nav {
     }
   }
   
+  /* .card-big {
+    padding: 1rem;
+    min-block-size: 20rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+  } */
 
   .card {
     padding: 1rem;
