@@ -4,6 +4,17 @@
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+    Integer userIdObj = (Integer) session.getAttribute("id");
+    String role = (String) session.getAttribute("role");
+
+    if (role == null || userIdObj == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html");
+        return;
+    }
+
+    int userId = userIdObj;
+%>
+<%
     // Get total amount directly from request parameter
     String totalAmount = request.getParameter("totalAmount");
     if (totalAmount == null || totalAmount.isEmpty()) {

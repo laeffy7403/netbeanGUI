@@ -7,6 +7,17 @@
     <title>Processing Order</title>
 </head>
 <body>
+    <%
+    Integer userIdObj = (Integer) session.getAttribute("id");
+    String role = (String) session.getAttribute("role");
+
+    if (role == null || userIdObj == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html");
+        return;
+    }
+
+    int userId = userIdObj;
+%>
 <%
     // Get parameters from the form
     String totalAmountStr = request.getParameter("totalAmount");
