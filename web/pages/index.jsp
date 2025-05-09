@@ -160,11 +160,13 @@
     <!-- Promotion Products Slide Section -->
     <section class="promotion-products">
         <!-- <h3>Exclusive event</h3> -->
-        <div id="carousel-container"></div>
+        <!--<div id="carousel-container"></div>-->
+        <jsp:include page="promotion_carousel.html" />
         <br><br>
 
         <h3>Special Pick For You</h3>
-        <div id="product-grid-carousel"></div>
+        <!--<div id="product-grid-carousel"></div>-->
+        <jsp:include page="product-grid-carousel.html" />
     </section>
 
     <br><br>
@@ -180,8 +182,8 @@
 
     <!-- Top Product Categories Section -->
     <section class="top-categories">
-        <h3>Top Product Categories</h3>
-        <div id="product-grid-carousel"></div>
+        <!--<h3>Top Product Categories</h3>-->
+        <!--<div id="product-grid-carousel"></div>-->
     </section>
 
     <!-- space   -->
