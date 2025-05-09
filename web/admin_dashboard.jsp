@@ -5,17 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="layout/dashboard/dashboard.css">
     <link rel="stylesheet" href="layout/icon_n_search_bar.css">
-    <title>admin dashboard</title>
+    <title>Admin Dashboard</title>
 </head>
 <body>
-    <header class="dashboard-header">
-
-        <div class="header-right">
-
-          <input type="text" class="search-bar" placeholder="Search...">
-          <div><img class="icon" src="../../img/profile.svg"  title="Profile" /></div>
-      </div>
-      </header>
       
       <aside class="dashboard-sidebar">
         <!-- <div class="logo">&#9812;</div> -->

@@ -5,15 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="layout/dashboard/dashboard.css">
     <link rel="stylesheet" href="layout/icon_n_search_bar.css">
-    <title>staff dashboard</title>
+    <title>Staff Dashboard</title>
 </head>
 <body>
-    <header class="dashboard-header">
-        <div class="header-right">
-          <input type="text" class="search-bar" placeholder="Search...">
-          <div><img class="icon" src="../../img/profile.svg"  title="Profile" /></div>
-      </div>
-      </header>
       
       <aside class="dashboard-sidebar">
         <!-- <div class="logo">&#9812;</div> -->
@@ -28,7 +22,7 @@
                 <!--<li><a href="orderList.jsp">Orders</a></li>-->
             <li><a href="staffProductCRUD.jsp">Products</a></li>
             <!--<li><a href="#">Reports</a></li>-->
-            <!--<li><a href="#">Ratings</a></li>-->
+            <li><a href="staffReplyRating.jsp">Ratings</a></li>
             <!--<li><a href="#">Payments</a></li>-->
             <!--<li><a href="#">Settings</a></li>-->
             <br>

@@ -52,18 +52,11 @@
     <link rel="stylesheet" href="layout/icon_n_search_bar.css">
     <link rel="stylesheet" href="layout/record.css">
 
-    <title>product record list</title>
+    <title>Customer List</title>
 </head>
 <body>
     
-    <header class="dashboard-header">
-
-        <div class="header-right">
-
-          <input type="text" class="search-bar" placeholder="Search...">
-          <div><img class="icon" src="../../img/profile.svg"  title="Profile" /></div>
-      </div>
-      </header>
+    
       
       <aside class="dashboard-sidebar">
         <!-- <div class="logo">&#9812;</div> -->
@@ -106,7 +99,6 @@
 
         <div class="container">
           <div class="header">
-              <input type="text" class="search-bar" placeholder="Search...">
               <button class="btn btn-refresh">
                   <a href="staffCustomerList.jsp"><span class="refresh-icon">⟳</span></a>
       </button>

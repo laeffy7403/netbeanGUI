@@ -135,7 +135,28 @@
                     <div class="review-content">
                         <p><%= rs2.getString("review")%></p>
                     </div>
-                    <a href="readReply.jsp?id=<%= rs2.getString("rating_id") %>" style="text-decoration: none"><p style="margin-bottom:0;">( see reply from us )</p></a>
+                    <%
+                        Statement stmt3 = null;
+                        ResultSet rs3 = null;
+                        try {
+                            stmt3 = conn.createStatement();
+                            rs3 = stmt3.executeQuery("SELECT * FROM REPLY WHERE rating_id = " + rs2.getInt("rating_id"));
+                            if (rs3.next()) {
+                    %>
+                    <a href="readReply.jsp?id=<%= rs2.getInt("rating_id")%>" style="text-decoration: none">
+                        <p style="margin-bottom:0;">( see reply from us )</p>
+                    </a>
+                    <%
+                            }
+                        } finally {
+                            if (rs3 != null) {
+                                rs3.close();
+                            }
+                            if (stmt3 != null) {
+                                stmt3.close();
+                            }
+                        }
+                    %>
                 </div>
                 <%
                     }
