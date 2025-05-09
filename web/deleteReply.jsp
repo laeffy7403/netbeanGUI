@@ -1,20 +1,9 @@
 <%@ page language="java" %>
 <%@ page import="java.sql.*, java.util.*" %>
 <%
-    Integer userIdObj = (Integer) session.getAttribute("id");
-    String role = (String) session.getAttribute("role");
-
-    if (role == null || userIdObj == null || !role.equals("customer")) {
-        response.sendRedirect("../loginError.html");
-        return;
-    }
-
-    int userId = userIdObj;
-%>
-<%
     Connection conn = null;
     PreparedStatement stmt = null;
-    String message = "Item removed from cart successfully!";
+    String message = "Reply has been deleted successfully!";
 
     try {
         String dbURL = "jdbc:derby://localhost:1527/techdb";
@@ -23,18 +12,15 @@
 
         // Get the product ID and quantity from the request (webpage link)
         // exp. deleteFromCart.jsp?productId=1000&customerId=1010
-        String productIdParam = request.getParameter("productId");
-        String customerIdParam = request.getParameter("customerId");
+        String id = request.getParameter("id");
 
-        int productId = Integer.parseInt(productIdParam.trim());
-        int customerId = Integer.parseInt(customerIdParam.trim());
+        int ratingID = Integer.parseInt(id.trim());
 
         conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
 
-        String deleteRec = "DELETE FROM CART WHERE customer_id = ? AND product_id = ?";
+        String deleteRec = "DELETE FROM REPLY WHERE rating_id = ?";
         stmt = conn.prepareStatement(deleteRec);
-        stmt.setInt(1, customerId);
-        stmt.setInt(2, productId);
+        stmt.setInt(1, ratingID);
         int rowsUpdated = stmt.executeUpdate();
 
         if (rowsUpdated == 0) {
@@ -64,7 +50,7 @@
     out.println(
             "alert('" + message + "');");
     out.println(
-            "window.location.href='cart.jsp';");
+            "window.location.href='adminReplyRating.jsp';");
     out.println(
             "</script>");
 %>

@@ -1,6 +1,16 @@
 <%@ page language="java" %>
 <%@ page import="java.sql.*, java.util.*" %>
+<%
+    Integer userIdObj = (Integer) session.getAttribute("id");
+    String role = (String) session.getAttribute("role");
 
+    if (role == null || userIdObj == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html");
+        return;
+    }
+
+    int userId = userIdObj;
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,9 +35,9 @@
                     Connection conn = null;
                     PreparedStatement stmt2 = null;
                     ResultSet rs2 = null;
-                    
+
                     int ratingID = Integer.parseInt(request.getParameter("id"));
-                    
+
                     try {
                         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/techdb", "nbuser", "nbuser");
                         String getReview = "SELECT p.product_name, r.rating, r.review FROM rating r JOIN products p ON r.product_id = p.product_id WHERE r.rating_id = ?";
@@ -60,7 +70,7 @@
                         <p style="text-align: center;">... No Review Yet ...</p>
                     </div>
                 </div>
-              
+
                 <%
                         }
                     } catch (Exception e) {
@@ -72,26 +82,58 @@
                         if (stmt2 != null) {
                             stmt2.close();
                         }
-                        if (conn != null) {
-                            conn.close();
-                        }
                     }
                 %>
                 <div class="review">   
                     <div class="review-header">
-                        <h4 class="review-author">REPLY FROM Mr MANAGER</h4>
-                        
+                        <%
+                            PreparedStatement stmt = null;
+                            ResultSet rs = null;
+
+                            try {
+                                String getReply = "SELECT r.*, "
+                                        + "CASE WHEN r.role = 'admin' THEN a.\"USERNAME\" "
+                                        + "     WHEN r.role = 'staff' THEN s.\"USERNAME\" "
+                                        + "     ELSE 'Unknown' END AS responder_name "
+                                        + "FROM Reply r "
+                                        + "LEFT JOIN Admin a ON r.role = 'admin' AND r.id = a.admin_id "
+                                        + "LEFT JOIN Staff s ON r.role = 'staff' AND r.id = s.staff_id "
+                                        + "WHERE r.rating_id = ?";
+                                stmt = conn.prepareStatement(getReply);
+                                stmt.setInt(1, ratingID);
+                                rs = stmt.executeQuery();
+
+                                if (rs.next()) {
+                        %>
+                        <h4 class="review-author">REPLY FROM <%= rs.getString("responder_name")%></h4>
+
                     </div>
                     <div class="review-content">
-                        <p>Thanks for ur kind word, however fuck u</p>
+                        <p><%= rs.getString("review")%></p>
                     </div>
+                    <%
+                            }
+                        } catch (Exception e) {
+                            out.println("<div class='alert alert-danger'>Error loading reviews: " + e.getMessage() + "</div>");
+                        } finally {
+                            if (rs != null) {
+                                rs.close();
+                            }
+                            if (stmt != null) {
+                                stmt.close();
+                            }
+                            if (conn != null) {
+                                conn.close();
+                            }
+                        }
+                    %>
                 </div>
             </div>
         </div>
     </body>
-    
+
     <br><br><br><br><br><br><br><br><br><br><br><br>
-    
+
     <div id="footer-placeholder"></div>
 </html>
 <script>

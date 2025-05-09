@@ -1,3 +1,14 @@
+<%
+    Integer userIdObj = (Integer) session.getAttribute("id");
+    String role = (String) session.getAttribute("role");
+
+    if (role == null || userIdObj == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html");
+        return;
+    }
+
+    int userId = userIdObj;
+%>
 <%@ page language="java" %>
 <%@ page import="java.sql.*, java.util.*" %>
 <%
@@ -40,9 +51,10 @@
                     double price = rs.getDouble("price");
 
                     // if cart already have existed product when u add new product to cart, change the quantity instead of add new record to cart
-                    String checkDupe = "SELECT quantity FROM CART WHERE product_id = ?";
+                    String checkDupe = "SELECT quantity FROM CART WHERE product_id = ? AND customer_id = ?";
                     stmt2 = conn.prepareStatement(checkDupe);
                     stmt2.setInt(1, productId);
+                    stmt2.setInt(2, userId);
                     rs2 = stmt2.executeQuery();
                     if (rs2.next()) {
                         int oldQuantity = rs2.getInt("quantity");
@@ -62,7 +74,7 @@
                         // insert :D
                         String insertCart = "INSERT INTO CART (customer_id, product_id, product_name, quantity, price, subtotal) VALUES (?, ?, ?, ?, ?, ?)";
                         stmt = conn.prepareStatement(insertCart);
-                        stmt.setInt(1, 1000); // customer_id placeholder
+                        stmt.setInt(1, userId);
                         stmt.setInt(2, productId);
                         stmt.setString(3, prodName);
                         stmt.setInt(4, quantity);
