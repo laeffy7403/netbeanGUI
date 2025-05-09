@@ -1,4 +1,3 @@
-
 package controller;
 
 
@@ -20,28 +19,23 @@ public class Login extends HttpServlet {
         UserDAO dao = new UserDAO();
         HttpSession session = request.getSession();
 
-         if (dao.validateCustomer(username, password)) {
+        if (dao.validateCustomer(username, password)) {
             Customer user = dao.getCustomerByUsername(username);
             session.setAttribute("user", user);
             session.setAttribute("role", "customer");
             session.setAttribute("username", username);
-            session.setAttribute("id", user.getId()); // 👈 Store customer ID
+            session.setAttribute("id", user.getId());
             response.sendRedirect("pages/homepage.jsp");
         } else if (dao.validateStaff(username, password)) {
-            int staffId = dao.getStaffIdByUsername(username); // You must implement this
             session.setAttribute("role", "staff");
             session.setAttribute("username", username);
-            session.setAttribute("id", staffId); // 👈 Store staff ID
             response.sendRedirect("staff_dashboard.jsp");
         } else if (dao.validateAdmin(username, password)) {
-            int adminId = dao.getAdminIdByUsername(username); // You must implement this
             session.setAttribute("role", "admin");
             session.setAttribute("username", username);
-            session.setAttribute("id", adminId); // 👈 Store admin ID
             response.sendRedirect("admin_dashboard.jsp");
         } else {
             request.setAttribute("error", "Invalid credentials");
-            request.getRequestDispatcher("../loginError.html").forward(request, response);
-        }
-    }
-}
+            request.getRequestDispatcher("loginError.html").forward(request, response);
+ }
+}}

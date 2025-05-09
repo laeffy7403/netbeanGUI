@@ -48,6 +48,6 @@ if (dao.isUsernameOrEmailTaken(username, email)) {
             request.setAttribute("error", "Registration failed. Username might already exist.");
             RequestDispatcher rd = request.getRequestDispatcher("signup.jsp");
             rd.forward(request, response);
-        }
-    }
+}
+}
 }

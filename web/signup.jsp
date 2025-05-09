@@ -54,7 +54,7 @@ document.querySelector("form").addEventListener("submit", function (e) {
     const phone = document.querySelector("input[name='phone']").value;
 
     const phoneRegex = /^\d{10,15}$/; // 10 to 15 digits
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+[\]{};':"\\|,.<>/?`~\-]{6,}$/;
+const passwordRegex = /^(?=.[A-Za-z])(?=.\d)[A-Za-z\d!@#$%^&*()_+[\]{};':"\\|,.<>/?`~\-]{6,}$/;
 
     if (password !== confirmPassword) {
         alert("Passwords do not match.");
@@ -72,6 +72,6 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+[\]{};':"\\|,
         alert("Password must be at least 6 characters and include both letters and numbers.");
         e.preventDefault();
         return;
-    }
+    }
 });
 </script>

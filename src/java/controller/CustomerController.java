@@ -27,8 +27,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     if ("delete".equals(action)) {
         int customerId = Integer.parseInt(request.getParameter("customer_Id"));
         dao.deleteCustomer(customerId);
-        response.sendRedirect("CustomerController");  // refresh the list
-    }
+        response.sendRedirect("CustomerController");  // refresh the list
+}
 }
 
 }

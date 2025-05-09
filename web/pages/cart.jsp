@@ -19,28 +19,15 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <title>Shopping Bag</title>
-        <style>
+    </head>
+    <style>
         * {
             position: relative;
         }
-        </style>
-    </head>
+    </style>
     <body>
 
         <%
-            // Get customer ID from session if available
-            String customerIdStr = (String) session.getAttribute("customerId");
-            int customerId = 1000; // Default value
-            
-            // Try to parse customer ID from session
-            if (customerIdStr != null && !customerIdStr.isEmpty()) {
-                try {
-                    customerId = Integer.parseInt(customerIdStr);
-                } catch (NumberFormatException e) {
-                    // Use default if parsing fails
-                }
-            }
-            
             String dbURL = "jdbc:derby://localhost:1527/techdb";
             String dbUser = "nbuser";
             String dbPass = "nbuser";
@@ -48,45 +35,15 @@
             Connection conn = null;
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            
-            // Variable to store or generate order_id
-            int orderId = 0;
 
             try {
                 Class.forName("org.apache.derby.jdbc.ClientDriver");
                 conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
 
-                // Check if there's an existing order for this customer
-                String checkOrder = "SELECT order_id FROM ORDERS WHERE customer_id = ? AND status = 'PENDING' ORDER BY order_id DESC FETCH FIRST 1 ROWS ONLY";
-                stmt = conn.prepareStatement(checkOrder);
-                stmt.setInt(1, customerId);
-                ResultSet orderRs = stmt.executeQuery();
-                
-                if (orderRs.next()) {
-                    // Use existing pending order
-                    orderId = orderRs.getInt("order_id");
-                } else {
-                    // Generate a new order ID (this is just a simple example - you might want to use a more robust method)
-                    String getMaxOrderId = "SELECT MAX(order_id) as max_id FROM ORDERS";
-                    Statement maxStmt = conn.createStatement();
-                    ResultSet maxRs = maxStmt.executeQuery(getMaxOrderId);
-                    
-                    if (maxRs.next()) {
-                        orderId = maxRs.getInt("max_id") + 1;
-                    } else {
-                        orderId = 1001; // Starting order ID if no orders exist
-                    }
-                    
-                    maxRs.close();
-                    maxStmt.close();
-                }
-                
-                orderRs.close();
-
-                // Fetch products with proper customer ID
-                String getCart = "SELECT c.*, p.image_url, p.category FROM CART c JOIN PRODUCTS p ON c.product_id = p.product_id WHERE customer_id = ?";
+                // Fetch products
+                String getCart = "SELECT c.*, p.image_url, p.category FROM CART c JOIN PRODUCTS p ON c.product_id = p.product_id WHERE customer_id = ?"; //need change user ID, make it follow session
                 stmt = conn.prepareStatement(getCart);
-                stmt.setInt(1, customerId);
+                stmt.setInt(1, userId);
                 rs = stmt.executeQuery();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -106,39 +63,28 @@
                                 int count = 0;
                                 while (rs != null && rs.next()) {
                                     count++;
-                                    double price = rs.getDouble("price");
-                                    int quantity = rs.getInt("quantity");
-                                    int productId = rs.getInt("product_id");
-                                    String productName = rs.getString("product_name");
-                                    
-                                    // Store cart item details for later use
-                                    Map<String, Object> item = new HashMap<String, Object>();
-                                    item.put("product_id", productId);
-                                    item.put("product_name", productName);
-                                    item.put("price", price);
-                                    item.put("quantity", quantity);
-                                    cartItems.add(item);
-                                    
                                     total += rs.getDouble("subtotal");
-                                    double totalEach = price * quantity;%>
+                                    double totalEach = rs.getDouble("price") * rs.getInt("quantity");%>
                             <div class="row cart-item mb-3">
                                 <div class="col-md-3">
                                     <img src="<%= rs.getString("image_url")%>" alt="Product 1" class="img-fluid rounded" 
                                          style="">
                                 </div>
                                 <div class="col-md-5">
-                                    <h5 class="card-title"><%= productName %></h5>
+                                    <h5 class="card-title"><%= rs.getString("product_name")%></h5>
                                     <p class="text-muted">Category: <%= rs.getString("category")%></p>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="input-group">
-                                        <p class="fw-semibold mb-0">Quantity: <%= quantity %></p>
-                                        <p class="text-muted">RM<%= price %>/unit</p>
+                                        <p class="fw-semibold mb-0">Quantity: <%= rs.getInt("quantity")%></p>
+                                        <p class="text-muted">RM<%= rs.getDouble("price")%>/unit</p>
                                     </div>
                                 </div>
                                 <div class="col-md-2 text-end">
                                     <p class="fw-bold">RM<%= totalEach%></p>
 
+                                    <form action="deleteFromCart.jsp?id=<%= rs.getInt("product_id")%>&customer_id=<%= rs.getInt("customer_id")%>" method="post" onsubmit="return confirm('Are you sure you want to delete this item from your cart?')">
+                                        <input type="hidden" name="productId" value="<%= rs.getInt("product_id")%>">
                                         <input type="hidden" name="customerId" value="<%= rs.getInt("customer_id")%>">
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
                                             <i class="bi bi-trash"></i>
@@ -151,15 +97,11 @@
                             <hr>
                             <!--divide line-->
                             <% }
-                                if (count == 0) { %>
-                            <div>
-                                <h5 style="text-align: center">Your Cart is Empty</h5>
-                            </div>
-                            <% } else { %>
+                                if (rs == null)%>
                             <div>
                                 <h5 style="text-align: center">End Of Cart</h5>
                             </div>
-                            <% } %>
+
 
                         </div>
                     </div>
@@ -177,7 +119,7 @@
                             <h5 class="card-title mb-4">Order Summary</h5>
                             <div class="d-flex justify-content-between mb-3">
                                 <span>Subtotal</span>
-                                <span>RM<%= String.format("%.2f", total) %></span>
+                                <span>RM<%= total %></span>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <%  double shippingFee;
@@ -193,20 +135,23 @@
                                         noti = "(spend less than RM1000)";
                                     }
                                 %>
+                                <span>Shipping <%= noti%></span>
+                                <span>RM<%= shippingFee%></span>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <% double taxedTotal = Double.parseDouble(String.format("%.2f", total * 0.16));%>
                                 <span>Tax (16%)</span>
-                                <span>RM<%= String.format("%.2f", taxedTotal) %></span>
+                                <span>RM<%= taxedTotal%></span>
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between mb-4">
                                 <% double all = Double.parseDouble(String.format("%.2f", taxedTotal + total + shippingFee));%>
                                 <strong>Total</strong>
-                                <strong>RM<%= String.format("%.2f", all) %></strong>
+                                <strong>RM<%= all%></strong> <!-- +10 is shipping -->
                             </div>
-                                    <form action="deleteFromCart.jsp?id=<%= rs.getInt("product_id")%>&customer_id=<%= rs.getInt("customer_id")%>" method="post" onsubmit="return confirm('Are you sure you want to delete this item from your cart?')">
-                                        <input type="hidden" name="productId" value="<%= rs.getInt("product_id")%>">
+                            <% if (count > 0) {%>
+                            <a href="payment.jsp?total=<%= all%>"><button class="btn btn-primary w-100" <%="disabled"%> >Proceed to Checkout</button></a>
+                            <% }%>
                         </div>
                     </div>
 
@@ -221,42 +166,42 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const headerPlaceholder = document.getElementById("header-placeholder");
-        const footerPlaceholder = document.getElementById("footer-placeholder");
-        // Fetch and include the header.html content
-        fetch("../pages/header.jsp")
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Failed to load header.jsp");
-                    }
-                    return response.text();
-                })
-                .then((data) => {
-                    headerPlaceholder.innerHTML = data;
+                                        document.addEventListener("DOMContentLoaded", () => {
+                                            const headerPlaceholder = document.getElementById("header-placeholder");
+                                            const footerPlaceholder = document.getElementById("footer-placeholder");
+                                            // Fetch and include the header.html content
+                                            fetch("../pages/header.jsp")
+                                                    .then((response) => {
+                                                        if (!response.ok) {
+                                                            throw new Error("Failed to load header.jsp");
+                                                        }
+                                                        return response.text();
+                                                    })
+                                                    .then((data) => {
+                                                        headerPlaceholder.innerHTML = data;
 
-                    // Dynamically load the header.js script after the header is added
-                    const script = document.createElement("script");
-                    script.src = "../scripts/header.js";
-                    document.body.appendChild(script);
-                })
-                .catch((error) => {
-                    console.error("Error loading header:", error);
-                });
+                                                        // Dynamically load the header.js script after the header is added
+                                                        const script = document.createElement("script");
+                                                        script.src = "../scripts/header.js";
+                                                        document.body.appendChild(script);
+                                                    })
+                                                    .catch((error) => {
+                                                        console.error("Error loading header:", error);
+                                                    });
 
-        fetch("../pages/footer.jsp")
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Failed to load footer.html");
-                    }
-                    return response.text();
-                })
-                .then((data) => {
-                    footerPlaceholder.innerHTML = data;
-                })
-                .catch((error) => {
-                    console.error("Error loading footer:", error);
-                });
+                                            fetch("../pages/footer.jsp")
+                                                    .then((response) => {
+                                                        if (!response.ok) {
+                                                            throw new Error("Failed to load footer.html");
+                                                        }
+                                                        return response.text();
+                                                    })
+                                                    .then((data) => {
+                                                        footerPlaceholder.innerHTML = data;
+                                                    })
+                                                    .catch((error) => {
+                                                        console.error("Error loading footer:", error);
+                                                    });
 
                                         });
 </script>
