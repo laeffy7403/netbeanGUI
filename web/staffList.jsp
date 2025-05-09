@@ -4,7 +4,7 @@
     Integer userIdObj = (Integer) session.getAttribute("id");
     String role = (String) session.getAttribute("role");
 
-    if (role == null || userIdObj == null || !role.equals("staff")) {
+    if (role == null || userIdObj == null || !role.equals("admin")) {
         response.sendRedirect("../loginError.html");
         return;
     }

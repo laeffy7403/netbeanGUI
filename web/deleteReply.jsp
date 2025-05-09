@@ -1,6 +1,17 @@
 <%@ page language="java" %>
 <%@ page import="java.sql.*, java.util.*" %>
 <%
+    Integer userIdObj = (Integer) session.getAttribute("id");
+    String role = (String) session.getAttribute("role");
+
+    if (role == null || userIdObj == null || !role.equals("admin")) {
+        response.sendRedirect("../loginError.html");
+        return;
+    }
+
+    int userId = userIdObj;
+%>
+<%
     Connection conn = null;
     PreparedStatement stmt = null;
     String message = "Reply has been deleted successfully!";
