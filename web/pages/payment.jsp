@@ -1,7 +1,38 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    // Get total amount directly from request parameter
+    String totalAmount = request.getParameter("totalAmount");
+    if (totalAmount == null || totalAmount.isEmpty()) {
+        // Fallback to session attribute if not in request
+        totalAmount = (String) session.getAttribute("totalAmount");
+        // Set default value if still not available
+        if (totalAmount == null || totalAmount.isEmpty()) {
+            totalAmount = "0.00";
+        }
+    }
+    
+    // Store in session for later use
+    session.setAttribute("totalAmount", totalAmount);
+    
+    // Handle customer ID
+    String customerId = request.getParameter("customerId");
+    if (customerId != null && !customerId.isEmpty()) {
+        session.setAttribute("customerId", customerId);
+    }
+   
+    // Generate order ID
+    String orderId = request.getParameter("orderId");
+    if (orderId != null && !orderId.isEmpty()) {
+        session.setAttribute("orderId", orderId);
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -171,6 +202,28 @@
                 color: #6ab04c;
                 display: block; /* Ensure it's on its own line */
                 margin-top: 20px; /* Space between text1 and text2 */
+            }
+
+            /* Total Amount display styling */
+            .total-amount {
+                font-size: 36px;
+                font-weight: 700;
+                color: #28a745;
+                margin-top: 5px;
+                margin-bottom: 15px;
+                text-align: center;
+                animation: fadeIn 1s ease-in;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
 
             @keyframes text{
@@ -373,6 +426,17 @@
             .links {
                 margin-top: 20px;
             }
+
+            /* Added styles for debug info */
+            .debug-info {
+                background-color: #f8f9fa;
+                border: 1px solid #ddd;
+                padding: 10px;
+                margin-top: 20px;
+                font-size: 12px;
+                color: #666;
+                text-align: left;
+            }
         </style>
     </head>
 
@@ -387,10 +451,15 @@
                     <span class="text1">Payment</span>
                     <span class="text2">Almost There!</span>
                     <span class="text3">Just One Step Left</span>
+                    <div class="total-amount">RM <%= totalAmount %></div>
                 </div>
             </div>
             <div class="container">
-                <form method="post" action="${pageContext.request.contextPath}/UploadServlet" enctype="multipart/form-data">
+                <form method="post" action="UploadServlet" enctype="multipart/form-data" id="paymentForm">
+                    <input type="hidden" name="orderId" value="<%= session.getAttribute("orderId") %>">   
+                    <input type="hidden" name="customerId" value="<%= session.getAttribute("customerId") %>">
+                    <input type="hidden" name="totalAmount" value="<%= totalAmount %>">
+
                     <div class="form-section">
                         <h4>Billing Address</h4>
                         <div class="form-group">
@@ -413,27 +482,20 @@
                         </div>
                     </div>
                     <div class="form-section">
-
-                        </br><h4>Payment Verification</h4>
-
+                        <h4>Payment Verification</h4>
                         <div class="form-group">
-
                             <img src="${pageContext.request.contextPath}/img/tng-qr.jpg" alt="TNG QR Code" width="350">
-                            <label style="color:red;font-size:15px;">Please Scan to Pay with TNG ,after make payment please provide a screenshot to verify</label><br>
+                            <label style="color:red;font-size:15px;">Please Scan to Pay with TNG, after making payment please provide a screenshot to verify</label><br>
                         </div>      
-
-                        <label for="paymentProof" style="font-family:sans-serif;font-size:18px; ">Upload Screenshot:</label>
+                        <label for="paymentProof" style="font-family:sans-serif;font-size:18px;">Upload Screenshot:</label>
                         <input type="file" id="paymentProof" name="paymentProof" required>
-
-
-
+                        <div class="error-message" id="fileErrorMessage"></div>
                         <div class="links">
                             <p>Already submitted a payment? <a href="check-status.jsp">Check your payment status</a></p>
                         </div>
-
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Upload Payment" style="width:450px;">
+                        <input type="submit" value="Upload Payment" style="width:450px;" id="submitBtn">
                     </div>
                 </form>
             </div>
@@ -446,7 +508,7 @@
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 // Form Validation
-                const paymentForm = document.querySelector('form'); // Select the form element
+                const paymentForm = document.getElementById('paymentForm');
 
                 // Validation functions
                 const validateFullName = () => {
@@ -516,30 +578,50 @@
                     }
                 };
 
-                // Function to validate all required fields
+                const validateFile = () => {
+                    const fileInput = document.getElementById('paymentProof');
+                    const errorElement = document.getElementById('fileErrorMessage');
+
+                    if (!fileInput.files || fileInput.files.length === 0) {
+                        errorElement.textContent = 'Please select a payment proof screenshot';
+                        errorElement.style.display = 'block';
+                        return false;
+                    } else {
+                        errorElement.style.display = 'none';
+                        return true;
+                    }
+                };
+
                 const validateForm = () => {
                     const isFullNameValid = validateFullName();
                     const isEmailValid = validateEmail();
                     const isAddressValid = validateAddress();
-
-                    // Check if file is selected
-                    const fileInput = document.getElementById('paymentProof');
-                    let isFileValid = true;
-
-                    if (!fileInput.files || fileInput.files.length === 0) {
-                        isFileValid = false;
-                        alert('Please select a payment proof screenshot');
-                    }
+                    const isFileValid = validateFile();
 
                     return isFullNameValid && isEmailValid && isAddressValid && isFileValid;
                 };
+
+                paymentForm.addEventListener('submit', (event) => {
+                    if (!validateForm()) {
+                        event.preventDefault();
+                    }
+
+                    // Check required hidden fields
+                    const orderId = document.querySelector('input[name="orderId"]').value;
+                    const customerId = document.querySelector('input[name="customerId"]').value;
+                    const totalAmount = document.querySelector('input[name="totalAmount"]').value;
+
+                    if (!orderId || !customerId || !totalAmount) {
+                        alert('Missing required order information. Please start from the order page.');
+                        event.preventDefault();
+                    }
+                });
 
                 // Real-time validation
                 document.getElementById('fullName').addEventListener('blur', validateFullName);
                 document.getElementById('email').addEventListener('blur', validateEmail);
                 document.getElementById('address').addEventListener('blur', validateAddress);
-
-                
+                document.getElementById('paymentProof').addEventListener('change', validateFile);
             });
         </script>
     </body>

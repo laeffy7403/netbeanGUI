@@ -19,7 +19,7 @@ public class ApprovePaymentServlet extends HttpServlet {
         try {
             id = Integer.parseInt(idParam);
         } catch (NumberFormatException e) {
-            response.sendRedirect("admin.jsp?error=Invalid payment ID");
+            response.sendRedirect(request.getContextPath() + "/pages/admin.jsp?error=Invalid payment ID");
             return;
         }
 
@@ -28,22 +28,22 @@ public class ApprovePaymentServlet extends HttpServlet {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
 
             // Connect to database
-            try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/payments", "username", "password"); PreparedStatement stmt = conn.prepareStatement("UPDATE payments SET status = 'approved' WHERE id = ?")) {
+            try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/techdb", "nbuser", "nbuser"); 
+                    PreparedStatement stmt = conn.prepareStatement("UPDATE PAYMENTS SET PAYMENT_STATUS = 'APPROVED' WHERE PAYMENT_ID = ?")) {
 
                 stmt.setInt(1, id);
                 int updated = stmt.executeUpdate();
 
                 if (updated > 0) {
-                    response.sendRedirect("pages/admin.jsp?message=Payment approved successfully");
-
+                    response.sendRedirect(request.getContextPath() + "/pages/admin.jsp?message=Payment approved successfully");
                 } else {
-                    response.sendRedirect("pages/admin.jsp?message=Payment not found");
+                    response.sendRedirect(request.getContextPath() + "/pages/admin.jsp?message=Payment not found");
                 }
             }
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("admin.jsp?error=Database error: " + e.getMessage());
+            response.sendRedirect(request.getContextPath() + "/pages/admin.jsp?error=Database error: " + e.getMessage());
         }
     }
 }

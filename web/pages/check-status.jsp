@@ -1,89 +1,126 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Check Payment Status</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .form-container {
-            max-width: 500px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 20px auto;
-        }
-        .form-field {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .home-link {
-            margin-top: 20px;
-        }
-        .error-message {
-            color: #f44336;
-            background-color: #ffebee;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            border-left: 5px solid #f44336;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fc, #e0eafc);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
         }
 
         .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
+            width: 100%;
+            padding: 40px 0;
+            background: #ffffffcc;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
             text-align: center;
-            border-bottom: 5px solid #28a745;
+            backdrop-filter: blur(10px);
         }
 
-        .header .logo img {
-            width: 80px;
-            height: auto;
-            margin-right: 20px;
-        }
-
-        .header .header-text h1 {
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2f3542;
             margin: 0;
-            font-size: 32px;
-            color: #fff;
+            font-weight: 600;
         }
 
-        .header .header-text h2 {
-            margin: 5px 0;
-            font-size: 20px;
-            color: #ddd;
+        .container {
+            background: #ffffff;
+            margin-top: 40px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            animation: fadeIn 0.6s ease-in-out;
         }
 
-        .header .header-text h3 {
-            margin: 5px 0;
-            font-size: 18px;
-            color: #bbb;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="email"]:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #4CAF50, #2ecc71);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #43a047, #27ae60);
+        }
+
+        .error-message {
+            background-color: #ffe0e0;
+            color: #b71c1c;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 5px solid #f44336;
+            margin-bottom: 20px;
+        }
+
+        .home-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .home-link a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .home-link a:hover {
+            color: #0066cc;
+        }
+
+        
     </style>
     <script>
         function validateForm() {
@@ -98,11 +135,13 @@
 </head>
 <body>
 
- 
+    <div class="header">
+        <h1>Check Your Payment Status</h1>
+    </div>
 
-    <h2 style="text-align: center; margin-top: 40px;">Check Your Payment Status</h2>
+    <div class="container">
+        <h2>Enter Your Email</h2>
 
-    <div class="form-container">
         <% if (request.getAttribute("error") != null) { %>
             <div class="error-message">
                 <%= request.getAttribute("error") %>
@@ -110,17 +149,15 @@
         <% } %>
 
         <form action="CheckPaymentStatusServlet" method="post" onsubmit="return validateForm()">
-            <div class="form-field">
-                <label for="email">Enter your email address:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="example@email.com" required>
             <button type="submit">Check Status</button>
-            <div class="home-link">
-                <a href="homepage.jsp">Back to Home</a>
-            </div>
         </form>
-    </div>
 
+        <div class="home-link">
+            <a href="homepage.jsp">← Back to Homepage</a>
+        </div>
+    </div>
 
 </body>
 </html>

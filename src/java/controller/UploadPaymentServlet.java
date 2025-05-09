@@ -1,14 +1,12 @@
 package controller;
 
-import java.io.*;
-import java.sql.*;
+import db.PaymentDA;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import javax.servlet.annotation.WebServlet;
+import java.io.*;
+import java.nio.file.*;
+import java.sql.*;
 
 @WebServlet(name = "UploadPaymentServlet", urlPatterns = {"/UploadPaymentServlet"})
 @MultipartConfig(
@@ -16,52 +14,54 @@ import javax.servlet.annotation.WebServlet;
     maxFileSize = 1024 * 1024 * 10,       // 10MB
     maxRequestSize = 1024 * 1024 * 50     // 50MB
 )
-
 public class UploadPaymentServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
-        String address = request.getParameter("address");
+        try {
+            // Collect form data (exclude paymentId, it's auto-generated)
+            int orderId = Integer.parseInt(request.getParameter("orderId"));
+            double amountPaid = Double.parseDouble(request.getParameter("amountPaid"));
+            String fullName = request.getParameter("fullName");
+            String email = request.getParameter("email");
+            String paymentStatus = "PENDING"; // Default status for new payments
 
-        Part filePart = request.getPart("paymentProof");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            // Handle file upload
+            Part filePart = request.getPart("paymentProof");
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-        // Get the absolute path of the web application
-        String appPath = request.getServletContext().getRealPath("");
-        if (appPath == null) {
-            throw new ServletException("Unable to determine the real path from the servlet context.");
-        }
+            // Upload directory
+            String appPath = request.getServletContext().getRealPath("");
+            Path uploadPath = Paths.get(appPath, "uploads");
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
 
-        // Construct the path to the uploads directory
-        Path uploadPath = Paths.get(appPath, "uploads");
+            Path filePath = uploadPath.resolve(fileName);
+            filePart.write(filePath.toString());
 
-        // Create the uploads directory if it doesn't exist
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
+            String screenshotPath = fileName; // Save only the filename
 
-        // Construct the file path
-        Path filePath = uploadPath.resolve(fileName);
-        filePart.write(filePath.toString());
+            // Insert payment record with the new schema
+            PaymentDA paymentDA = new PaymentDA();
+            boolean inserted = paymentDA.insertPayment(
+                    orderId, amountPaid, paymentStatus,
+                    fullName, email, screenshotPath
+            );
+            paymentDA.shutDown();
 
-        // Insert into DB
-        String screenshotPath = "uploads/" + fileName;
-        try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/yourDatabase", "username", "password");
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO payments (full_name, email, address, screenshot_path, status) VALUES (?, ?, ?, ?, 'pending')")) {
-
-            ps.setString(1, fullName);
-            ps.setString(2, email);
-            ps.setString(3, address);
-            ps.setString(4, screenshotPath);
-            ps.executeUpdate();
-
-            request.setAttribute("message", "Payment uploaded successfully!");
-            request.getRequestDispatcher("upload-success.jsp").forward(request, response);
-
-        } catch (SQLException e) {
-            throw new ServletException("DB error: " + e.getMessage());
+            if (inserted) {
+                request.setAttribute("message", "Payment uploaded successfully!");
+                request.getRequestDispatcher("upload-success.jsp").forward(request, response);
+            } else {
+                request.setAttribute("error", "Failed to upload payment.");
+                request.getRequestDispatcher("upload.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "An error occurred: " + e.getMessage());
+            request.getRequestDispatcher("upload.jsp").forward(request, response);
         }
     }
 }

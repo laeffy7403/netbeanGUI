@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.sql.*;
 import java.util.*;
+import db.PaymentDA; // Import your DAO class
 
 @WebServlet(name = "CheckPaymentStatusServlet", urlPatterns = {"/pages/CheckPaymentStatusServlet"})
 public class CheckPaymentStatusServlet extends HttpServlet {
@@ -19,19 +20,7 @@ public class CheckPaymentStatusServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("CheckPaymentStatusServlet: doPost method called");
         
-        // Debug info - print all request parameters
-        System.out.println("Request URI: " + request.getRequestURI());
-        System.out.println("Context Path: " + request.getContextPath());
-        System.out.println("Servlet Path: " + request.getServletPath());
-        
-        // List all parameters
-        System.out.println("All request parameters:");
-        Enumeration<String> paramNames = request.getParameterNames();
-        while (paramNames.hasMoreElements()) {
-            String paramName = paramNames.nextElement();
-            System.out.println(paramName + ": " + request.getParameter(paramName));
-        }
-        
+        // Get email parameter from the request
         String email = request.getParameter("email");
         System.out.println("Email parameter received: " + email);
         
@@ -43,41 +32,75 @@ public class CheckPaymentStatusServlet extends HttpServlet {
         }
         
         List<Map<String, Object>> payments = new ArrayList<>();
+        PaymentDA paymentDA = new PaymentDA();
         
         try {
-            System.out.println("Attempting to load database driver");
-            // Load the driver
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            System.out.println("Driver loaded successfully");
-            
-            // Establish connection
-            System.out.println("Attempting to connect to database");
-            try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/payments", "username", "password")) {
-                System.out.println("Connected to database successfully");
-                
-                String sql = "SELECT id, full_name, email, screenshot_path, status FROM payments WHERE email = ?";
-                System.out.println("Executing query: " + sql + " with parameter: " + email);
-                
-                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setString(1, email);
-                    ResultSet rs = pstmt.executeQuery();
-                    
-                    System.out.println("Query executed, processing results");
-                    int count = 0;
-                    while (rs.next()) {
-                        count++;
-                        Map<String, Object> payment = new HashMap<>();
-                        payment.put("id", rs.getInt("id"));
-                        payment.put("fullName", rs.getString("full_name"));
-                        payment.put("email", rs.getString("email"));
-                        payment.put("screenshotPath", rs.getString("screenshot_path"));
-                        payment.put("status", rs.getString("status"));
-                        
-                        payments.add(payment);
-                    }
-                    System.out.println("Found " + count + " payment records");
-                }
+            // Check if database connection is established
+            if (!paymentDA.isConnected()) {
+                throw new SQLException("Unable to connect to database");
             }
+            
+            // Use the updated PaymentDA method for email-based queries if available
+            ResultSet rs = paymentDA.getPaymentsByCustomerEmail(email);
+            
+            if (rs == null) {
+                throw new SQLException("Failed to retrieve payment records");
+            }
+            
+            System.out.println("Query executed, processing results");
+            int count = 0;
+            while (rs.next()) {
+                count++;
+                Map<String, Object> payment = new HashMap<>();
+                payment.put("paymentId", rs.getInt("PAYMENT_ID"));
+                int orderId = rs.getInt("ORDER_ID");
+                payment.put("orderId", orderId);
+                payment.put("amountPaid", rs.getDouble("AMOUNT_PAID"));
+                payment.put("status", rs.getString("PAYMENT_STATUS"));
+                payment.put("customerName", rs.getString("CUSTOMER_NAME"));
+                payment.put("customerEmail", rs.getString("CUSTOMER_EMAIL"));
+                payment.put("screenshotPath", rs.getString("SCREENSHOT_PATH"));
+                payment.put("paymentDate", rs.getTimestamp("PAYMENT_DATE"));
+                
+                // Retrieve customer ID from the orders table
+                try (Statement custStmt = paymentDA.getConnection().createStatement();
+                     ResultSet custRs = custStmt.executeQuery("SELECT CUSTOMER_ID FROM ORDERS WHERE ORDER_ID = " + orderId)) {
+                    if (custRs.next()) {
+                        payment.put("customerId", custRs.getInt("CUSTOMER_ID"));
+                    } else {
+                        payment.put("customerId", "N/A");
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Error retrieving customer ID: " + e.getMessage());
+                    payment.put("customerId", "N/A");
+                }
+                
+                // Retrieve order items
+                List<Map<String, Object>> orderItems = new ArrayList<>();
+                try (Statement itemsStmt = paymentDA.getConnection().createStatement();
+                     ResultSet itemsRs = itemsStmt.executeQuery(
+                         "SELECT OI.ORDER_ITEM_ID, P.PRODUCT_NAME, OI.QUANTITY, OI.PRICE_AT_TIME " +
+                         "FROM ORDERITEMS OI JOIN PRODUCTS P ON OI.PRODUCT_ID = P.PRODUCT_ID " +
+                         "WHERE OI.ORDER_ID = " + orderId)) {
+                    while (itemsRs.next()) {
+                        Map<String, Object> item = new HashMap<>();
+                        item.put("itemId", itemsRs.getInt("ORDER_ITEM_ID"));
+                        item.put("productName", itemsRs.getString("PRODUCT_NAME"));
+                        item.put("quantity", itemsRs.getInt("QUANTITY"));
+                        item.put("price", itemsRs.getDouble("PRICE_AT_TIME"));
+                        orderItems.add(item);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Error retrieving order items: " + e.getMessage());
+                }
+                payment.put("orderItems", orderItems);
+                
+                payments.add(payment);
+            }
+            System.out.println("Found " + count + " payment records");
+            
+            // Close the ResultSet
+            rs.close();
             
             // Store payments in request scope
             request.setAttribute("payments", payments);
@@ -86,15 +109,6 @@ public class CheckPaymentStatusServlet extends HttpServlet {
             // Forward to the results page
             request.getRequestDispatcher("/pages/payment-status-results.jsp").forward(request, response);
             
-        } catch (ClassNotFoundException e) {
-            System.err.println("Database driver not found: " + e.getMessage());
-            e.printStackTrace();
-            
-            // Set error message
-            request.setAttribute("error", "Database driver not found: " + e.getMessage());
-            
-            // Forward back to the check status page
-            request.getRequestDispatcher("/pages/check-status.jsp").forward(request, response);
         } catch (SQLException e) {
             System.err.println("Database error: " + e.getMessage());
             e.printStackTrace();
@@ -113,6 +127,9 @@ public class CheckPaymentStatusServlet extends HttpServlet {
             
             // Forward back to the check status page
             request.getRequestDispatcher("/pages/check-status.jsp").forward(request, response);
+        } finally {
+            // Close DAO connection
+            paymentDA.shutDown();
         }
     }
     
