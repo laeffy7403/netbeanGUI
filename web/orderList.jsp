@@ -1,6 +1,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
+
 <%
     String action = request.getParameter("action");
     String idParam = request.getParameter("id");

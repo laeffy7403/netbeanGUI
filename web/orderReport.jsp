@@ -3,6 +3,7 @@
 <html>
 <head><title>Generate Order Report</title></head>
 <body>
+    
 <%
     int adminId = 1; // hardcoded for now, make this dynamic if you want
     String reportTitle = "Monthly Order Summary";
