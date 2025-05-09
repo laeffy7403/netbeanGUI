@@ -1,11 +1,11 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../layout/homepage.css">
     <link rel="stylesheet" href="../layout/header.css">
-    <title>Homepage</title>
+    <title>Welcome!</title>
     <style>
 
         footer {
@@ -74,7 +74,7 @@
     <!-- Banner Section -->
     <div class="banner">
         <div class="banner-content">
-            <h2>Welcome to ABC</h2>
+            <h2>Welcome to 00Aplus</h2>
         </div>
     </div>
 
@@ -180,6 +180,8 @@
 
     <br><br><br><br>    
 
+<!--<<<<<<< HEAD-->
+<!--=======-->
     <!-- Top Product Categories Section -->
     <section class="top-categories">
         <!--<h3>Top Product Categories</h3>-->
@@ -189,6 +191,7 @@
     <!-- space   -->
     <br><br><br><br><br><br>
 
+<!-->>>>>>> origin/master-->
     <footer>
         <div class="footer-container">
             <div class="footer-section">
