@@ -1,6 +1,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
+
 <%
     String action = request.getParameter("action");
     String idParam = request.getParameter("id");
@@ -83,7 +85,7 @@
             <li><h1><a href="admin_dashboard.jsp">Dashboard</a></h1></li><hr style="color: aliceblue;"><br>
             <li><a href="orderList.jsp">Orders</a></li>
             <li><a href="productCRUD.jsp">Products</a></li>
-            <li><a href="#">Reports</a></li>
+            <li><a href="reportList.jsp">Reports</a></li>
             <li><a href="#">Ratings</a></li>
             <li><a href="#">Payments</a></li>
             <li><a href="#">Settings</a></li><br>
@@ -115,9 +117,12 @@
               <input type="text" class="search-bar" placeholder="Search...">
               <button class="btn btn-refresh">
                   <a href="orderList.jsp"><span class="refresh-icon">⟳</span></a>
-      </button>
+                </button>
               <button class="btn btn-create">
                   <a href="orderForm.jsp"><span class="plus-icon">+</span></a>
+              </button>
+              <button class="btn btn-gen">
+                  <a href="orderReport.jsp"><span class="plus-icon">+</span></a>
               </button>
           </div>
           <!-- <h1>Record List</h1> -->

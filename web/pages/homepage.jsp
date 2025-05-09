@@ -1,4 +1,11 @@
- <!DOCTYPE html>
+<%
+    String role = (String) session.getAttribute("role");
+    if (role == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html"); // or login page
+        return;
+    }
+%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

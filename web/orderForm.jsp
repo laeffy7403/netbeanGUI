@@ -59,6 +59,8 @@
 </head>
 <body>
    
+    <div class="msg notice">Note: please make sure the selected customer ID is <b>Registered</b> in the DB. </div>
+    <div class="msg notice">Note: <a href="customerList.jsp" target="_blank">click here</a> to refer existing customer ID. </div>
     
 <div class="form-container">
     <a href="orderList.jsp"><-- Back to Order List</a>

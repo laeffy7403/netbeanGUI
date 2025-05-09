@@ -2,6 +2,13 @@
 <html lang="en">
 <%@ page language="java" %>
 <%@ page import="java.sql.*, java.util.*" %>
+<%
+    String role = (String) session.getAttribute("role");
+    if (role == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html"); // or login page
+        return;
+    }
+%>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
