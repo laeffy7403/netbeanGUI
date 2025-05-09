@@ -15,14 +15,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../layout/homepage.css">
-    <title>Homepage</title>
+    <title>Welcome!</title>
 </head>
 <body>
     
     <!-- Banner Section -->
     <div class="banner">
         <div class="banner-content">
-            <h2>Welcome to ABC</h2>
+            <h2>Welcome to 00Aplus</h2>
         </div>
     </div>
 
@@ -58,9 +58,6 @@
         <!--<h3>End</h3>-->
         <!--<div id="product-grid-carousel"></div>-->
     </section>
-
-    <!-- space   -->
-    <br><br><br><br><br><br>
 
     <div id="footer-placeholder"></div>
 

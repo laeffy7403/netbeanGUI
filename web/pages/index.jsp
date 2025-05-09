@@ -179,8 +179,8 @@
         </div>
     </section>
 
-    <br><br><br><br>    
-
+    <br><br>
+    
     <footer>
         <div class="footer-container">
             <div class="footer-section">
