@@ -1,4 +1,14 @@
+<%
+    Integer userIdObj = (Integer) session.getAttribute("id");
+    String role = (String) session.getAttribute("role");
 
+    if (role == null || userIdObj == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html");
+        return;
+    }
+
+    int userId = userIdObj;
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,7 +124,7 @@ function initializeCarousel() {
         let currentIndex = 0;
 
         function showSlide(index) {
-            promotionSlides.style.transform = translateX(${-index * 100}%);
+            promotionSlides.style.transform = `translateX(${-index * 100}%)`;
             indicators.forEach((indicator, i) => {
                 indicator.classList.toggle('active', i === index);
             });
@@ -152,7 +162,7 @@ function initializeCarousel() {
         let currentIndex = 0;
 
         function showSlide(index) {
-            productSlides.style.transform = translateX(${-index * 50}%);
+            productSlides.style.transform = `translateX(${-index * 50}%)`;
             indicators.forEach((indicator, i) => {
                 indicator.classList.toggle('active', i === index);
             });
@@ -206,11 +216,11 @@ function initializeProductGridCarousel() {
     const totalNewSlides = newSlides.length;
 
     // Adjust wrapper position to start at first real slide
-    wrapper.style.transform = translateX(${-index * 100}%);
+    wrapper.style.transform = `translateX(${-index * 100}%)`;
 
     function showSlide() {
         wrapper.style.transition = "transform 0.5s ease-in-out";
-        wrapper.style.transform = translateX(${-index * 100}%);
+        wrapper.style.transform = `translateX(${-index * 100}%)`;
     }
 
     nextBtn.addEventListener("click", () => {
@@ -222,7 +232,7 @@ function initializeProductGridCarousel() {
             setTimeout(() => {
                 wrapper.style.transition = "none";
                 index = 1;
-                wrapper.style.transform = translateX(${-index * 100}%);
+                wrapper.style.transform = `translateX(${-index * 100}%)`;
             }, 500);
         } else {
             index++;
@@ -239,7 +249,7 @@ function initializeProductGridCarousel() {
             setTimeout(() => {
                 wrapper.style.transition = "none";
                 index = totalSlides - 1;
-                wrapper.style.transform = translateX(${-index * 100}%);
+                wrapper.style.transform = `translateX(${-index * 100}%)`;
             }, 500);
         } else {
             index--;
@@ -253,7 +263,7 @@ fetch("grid_category.jsp")
         .then(data => {
         document.getElementById("category-section").innerHTML = data;
         ProductInitializeCarousel();
-    });
+    });
 
 
 </script>
