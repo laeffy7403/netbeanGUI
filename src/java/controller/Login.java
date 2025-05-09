@@ -32,16 +32,16 @@ public class Login extends HttpServlet {
             session.setAttribute("role", "staff");
             session.setAttribute("username", username);
             session.setAttribute("id", staffId); // 👈 Store staff ID
-            response.sendRedirect("pages/user/staff_dashboard.jsp");
+            response.sendRedirect("../staff_dashboard.jsp");
         } else if (dao.validateAdmin(username, password)) {
             int adminId = dao.getAdminIdByUsername(username); // You must implement this
             session.setAttribute("role", "admin");
             session.setAttribute("username", username);
             session.setAttribute("id", adminId); // 👈 Store admin ID
-            response.sendRedirect("pages/user/admin_dashboard.jsp");
+            response.sendRedirect("admin_dashboard.jsp");
         } else {
             request.setAttribute("error", "Invalid credentials");
-            request.getRequestDispatcher("loginError.html").forward(request, response);
+            request.getRequestDispatcher("../loginError.html").forward(request, response);
         }
     }
 }
