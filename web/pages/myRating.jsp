@@ -1,11 +1,15 @@
 <%@ page language="java" %>
 <%@ page import="java.sql.*, java.util.*" %>
 <%
+    Integer userIdObj = (Integer) session.getAttribute("id");
     String role = (String) session.getAttribute("role");
-    if (role == null || !role.equals("customer")) {
-        response.sendRedirect("../loginError.html"); // or login page
+
+    if (role == null || userIdObj == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html");
         return;
     }
+
+    int userId = userIdObj;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +40,7 @@
                         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/techdb", "nbuser", "nbuser");
                         String getReview = "SELECT p.product_name, r.rating_id, r.rating, r.review FROM rating r JOIN products p ON r.product_id = p.product_id WHERE r.customer_id = ?";
                         stmt2 = conn.prepareStatement(getReview);
-                        stmt2.setInt(1, 1000); //1000 is preset id, need modify with session id
+                        stmt2.setInt(1, userId);
                         rs2 = stmt2.executeQuery();
 
                         while (rs2.next()) {
