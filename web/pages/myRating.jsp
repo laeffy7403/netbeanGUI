@@ -1,10 +1,9 @@
 <%@ page language="java" %>
 <%@ page import="java.sql.*, java.util.*" %>
-<%@ page import="model.Customer" %>
 <%
-    Customer user = (Customer) session.getAttribute("user");
-    if (user == null) {
-        response.sendRedirect("../login.jsp");
+    String role = (String) session.getAttribute("role");
+    if (role == null || !role.equals("customer")) {
+        response.sendRedirect("../loginError.html"); // or login page
         return;
     }
 %>
