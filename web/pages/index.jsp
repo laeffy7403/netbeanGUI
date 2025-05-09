@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../layout/homepage.css">
     <link rel="stylesheet" href="../layout/header.css">
-    <title>Homepage</title>
+    <title>Welcome!</title>
     <style>
 
         footer {
@@ -74,7 +74,7 @@
     <!-- Banner Section -->
     <div class="banner">
         <div class="banner-content">
-            <h2>Welcome to ABC</h2>
+            <h2>Welcome to 00Aplus</h2>
         </div>
     </div>
 
@@ -177,15 +177,6 @@
     </section>
 
     <br><br><br><br>    
-
-    <!-- Top Product Categories Section -->
-    <section class="top-categories">
-        <h3>Top Product Categories</h3>
-        <div id="product-grid-carousel"></div>
-    </section>
-
-    <!-- space   -->
-    <br><br><br><br><br><br>
 
     <footer>
         <div class="footer-container">
