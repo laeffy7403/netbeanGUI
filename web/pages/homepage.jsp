@@ -32,14 +32,11 @@
     <!-- Promotion Products Slide Section -->
     <section class="promotion-products">
         <!-- <h3>Exclusive event</h3> -->
-        <!--<div id="carousel-container"></div>-->
-        <jsp:include page="promotion_carousel.html" />
+        <div id="carousel-container"></div>
         <br><br>
-        </section>
-    <section>
+
         <h3>Special Pick For You</h3>
-        <!--<div id="product-grid-carousel"></div>-->
-        <jsp:include page="product-grid-carousel.html" />
+        <div id="product-grid-carousel"></div>
     </section>
 
     <br><br>
@@ -55,8 +52,8 @@
 
     <!-- Top Product Categories Section -->
     <section class="top-categories">
-        <!--<h3>End</h3>-->
-        <!--<div id="product-grid-carousel"></div>-->
+        <h3>Top Product Categories</h3>
+        <div id="product-grid-carousel"></div>
     </section>
 
     <!-- space   -->
